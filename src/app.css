@@ -1,3 +1,8 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@theme {
+	--font-poppins: 'Poppins', 'Roboto', sans-serif;
+	--font-roboto: 'Roboto', 'Poppins', sans-serif;
+}
