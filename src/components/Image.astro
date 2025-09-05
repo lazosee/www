@@ -1,0 +1,68 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+const { src, alt, width, height, ...rest } = Astro.props as HTMLAttributes<'img'>;
+---
+
+<figure>
+    <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        title={rest['aria-label'] ?? alt}
+        loading={rest.loading ?? 'lazy'}
+        {...rest}
+    />
+    <hr />
+    <figcaption>
+        <span>{rest["data-caption"] ?? alt}</span>
+    </figcaption>
+</figure>
+
+<style>
+    * {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+    figure {
+        --gray: #888;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--gray);
+        border-radius: 0.5rem;
+        height: auto;
+        padding: 0;
+        margin: 0.4rem;
+        width: 100%;
+        border-collapse: collapse;
+    }
+    hr {
+        border-bottom: 1px solid var(--gray);
+        width: 100%;
+        height: 0;
+        margin: 0;
+    }
+    figure > figcaption {
+        display: flex;
+        padding: 0.5rem 1rem;
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--gray);
+        text-justify: distribute-all-lines;
+        font-style: oblique;
+    }
+    image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        aspect-ratio: auto;
+    }
+</style>

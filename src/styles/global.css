@@ -1,0 +1,85 @@
+@import '@fontsource/roboto';
+@import '@fontsource/jetbrains-mono';
+@import '@fontsource/roboto-mono';
+@import '@fontsource/atkinson-hyperlegible';
+@import '@fontsource/syne';
+
+article.post {
+	font-size: 1.25rem;
+	font-family: 'Atkinson Hyperlegible', 'Inter', Arial, Helvetica, sans-serif;
+}
+
+article.post p,
+article.post a,
+article.post div {
+	font-size: 1.25rem;
+}
+
+article.post {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: 'Syne Variable', 'Atkinson Hyperlegible', Arial, Helvetica, sans-serif;
+	}
+	h1 {
+		font-size: 2.6rem;
+	}
+	h2 {
+		font-size: 2.4rem;
+	}
+	h3 {
+		font-size: 2.2rem;
+	}
+	h4 {
+		font-size: 2rem;
+	}
+	h5 {
+		font-size: 1.8rem;
+	}
+	h6 {
+		font-size: 1.6rem;
+	}
+}
+
+.font-roboto {
+	font-family: 'Roboto', sans-serif;
+}
+.font-mono,
+.shiki,
+code,
+pre,
+pre > code {
+	font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+}
+
+pre.shiki {
+	padding: 1rem;
+	margin: 0;
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	overflow: auto;
+	font-size: 1.15rem;
+	line-height: 1.5rem;
+	background-color: transparent !important;
+}
+
+pre * {
+	background-color: inherit;
+}
+code {
+	counter-reset: step;
+	counter-increment: step calc(var(--start, 1) - 1);
+}
+code .line::before {
+	content: counter(step);
+	counter-increment: step;
+	width: 1rem;
+	margin-right: 1.5rem;
+	display: inline-block;
+	text-align: right;
+	color: rgba(115, 138, 148, 0.4);
+}

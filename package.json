@@ -1,14 +1,22 @@
 {
-  "name": "www",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.13.5"
-  }
+	"dependencies": {
+		"@astrojs/markdoc": "^0.15.5",
+		"@astrojs/vercel": "^8.2.7",
+		"@fontsource/atkinson-hyperlegible": "^5.2.6",
+		"@fontsource/jetbrains-mono": "^5.2.6",
+		"@fontsource/roboto": "^5.2.6",
+		"@fontsource/roboto-mono": "^5.2.6",
+		"@fontsource/syne": "^5.2.6",
+		"@lueur/blog-utils": "^1.20250824.11",
+		"astro": "^5.13.5"
+	},
+	"name": "www",
+	"scripts": {
+		"astro": "astro",
+		"build": "astro build",
+		"dev": "astro dev --host",
+		"preview": "astro preview"
+	},
+	"type": "module",
+	"version": "0.0.1"
 }

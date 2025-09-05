@@ -1,16 +1,25 @@
 ---
-
+import { Fragment } from "astro/jsx-runtime"
+import { Slot } from "../components/main"
+import Base from "../layouts/base.astro"
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base title="Lazaro Osee">
+	<Slot slot="head">
+		<meta name="author" content="Lazaro Osee" />
+		<meta 
+			name="description" 
+			content="The 'Official' Personnal Website and Blog of Lazaro Osee, an Architecture Student and a 'self taught' Software Developer" 
+		/>
+		<meta 
+			name="keywords" 
+			content="Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts" 
+		/>
+	</Slot>
+
+	<main>
+		<section>
+			<h1>Lazaro Osee</h1>
+		</section>
+	</main>
+</Base>

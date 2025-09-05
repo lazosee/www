@@ -1,0 +1,106 @@
+---
+title: Yet Another Post
+summary: This post was (more of "is") being used to test custom markdoc components
+image: ./favicon.svg
+published_at: 2025-08-05
+updated_at: 2025-09-05
+category: Personal
+tags: ['personal', 'test', 'markdoc', 'tags']
+draft: true
+---
+
+# Let's Wrap Up
+# Let's Wrap Up
+## Let's Wrap Up
+### Let's Wrap Up
+#### Let's Wrap Up
+##### Let's Wrap Up
+###### Let's Wrap Up
+
+[My Website](https://lazaroosee.xyz)
+
+{% package-install
+    managers={
+        "npm": "npm install @markdoc/markdoc",
+        "yarn": "yarn add @markdoc/markdoc",
+        "bun": "bun add @markdoc/markdoc",
+        "pnpm": "pnpm add @markdoc/markdoc",
+    }
+/%}
+
+Below is some `typescript` code:
+```typescript {% path="src/greeting/index.ts" %}
+function hello(message: string) {
+    // This is such a long comment that it should wrap around to the next line
+    return `Hello ${text}`
+}
+```
+
+Below is some `go` code too:
+```go {% path="src/main.go" %}
+package main
+
+func main() {
+    println("Hello, World!")
+}
+```
+
+> Welcome One and All
+> _Cite
+
+Even an image
+
+{% image src="/favicon.svg" alt="Astro Logo" width="60" height="60" aria-label="Astro Logo" data-caption="Astro Logo" /%}
+
+{% callout type="warning" title="This is a warning" %}
+This is some **bold** text here
+And an _italic_ there
+
+And a [link](https://lazaroosee.xyz)
+
+And a table
+{% csv-table %}
+Header 1,Header 2
+---
+Row 1 Col 1,Row 1 Col 2
+---
+Row 2 Col 1,Row 2 Col 2
+{% /csv-table %}
+{% /callout %}
+
+{% csv-table %}
+Name,Email,City,Year
+---
+Lucy,lucy@mail.com,Tokyo,2017
+---
+Jim,jimmy@mail.com,Houston,2006
+---
+Stacy,sta@yahoo.com,Nairobi,2024
+---
+Clifford,cliff@gmail.com,kampala,2019
+{% /csv-table %}
+
+We are doing great!!
+🥰 🥰
+
+{% callout type="note" %}
+List
+1. Hello there, a __tip__
+2. Yes!
+{% /callout %}
+
+{% callout type="info" %}
+Hello there, a __tip__
+{% /callout %}
+
+{% callout type="tip" %}
+Hello there, a __tip__
+{% /callout %}
+
+{% callout type="warning" %}
+Hello there, a __tip__
+{% /callout %}
+
+{% callout type="danger" %}
+Hello there, a __tip__
+{% /callout %}

@@ -1,0 +1,184 @@
+---
+type Props = {
+    managers: {
+        [key: string]: string
+    }
+}
+
+const { managers } = Astro.props
+---
+
+<div class="container">
+    <div class="header">
+        <div>
+            {Object.keys(managers).map(key => (
+                <button class="tab" data-key={key}>
+                    <i 
+                        class={`devicon-${key}-plain colored`} 
+                        style="font-size: 1rem; vertical-align: middle; horizontal-align: middle;"
+                    />
+                    <span>{key}</span>
+                </button>
+            ))}
+        </div>
+        <span class="lang">
+            <i 
+                class={`devicon-bash-plain colored`} 
+                style="font-size: 1.1rem; vertical-align: middle; horizontal-align: middle;color: white;"
+            />
+            bash
+        </span>
+    </div>
+    <div class="body">
+        <div id="install-code" data-managers={JSON.stringify(Object.values(managers))}>
+            {JSON.stringify(Object.values(managers))[0]}
+        </div>
+        <button id="copy-install">Copy</button>
+    </div>
+</div>
+
+<script>
+    import { codeToHtml } from "@lueur/blog-utils";
+import { shikiInstance } from "../constants/shiki";
+import { copy_to_clipboard } from "../helpers";
+
+    const copyBtn = document.querySelector('#copy-install')
+    const codeDiv = (document.querySelector('#install-code') as HTMLDivElement)
+    const tabsMap = document.querySelectorAll('.tab')
+
+    let current: number = 0;
+    const values: string[] = JSON.parse(codeDiv.getAttribute('data-managers') ?? '[]')
+
+    copyBtn?.addEventListener(
+        'click', 
+        async function() { 
+            copy_to_clipboard(copyBtn, values[current])
+        }
+    )
+
+    // Add click event listeners to the tabs
+    tabsMap.forEach((t, i) => {
+        t.addEventListener('click', function() {
+            // Set current tab index to this button
+            current = i
+            // Set the html content to correspond to current package manager
+            codeDiv.innerHTML = codeToHtml(values[current], 'bash', { shikiInstance })
+
+            // Remove current class on all tab buttons
+            tabsMap.forEach(tab => tab.classList.remove('current'))
+            // Add current class on this button
+            t.classList.add('current')
+        })
+    })
+
+    // Set the first tab initially as the current
+    setTab(current)
+    tabsMap.forEach(t => t.classList.remove('current'))
+    tabsMap[0].classList.add('current')
+    
+    /**
+     * Sets which tab is currently open
+     * @param {number} current  Sets the index of the current (open) tab
+     */
+    function setTab(current: number) {
+        codeDiv.innerHTML = codeToHtml(values[current], 'bash', { shikiInstance })
+    }
+</script>
+
+<style>
+    div.container {
+        box-sizing: border-box;
+        position: relative;
+        display: flex;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        margin: 0.5rem;
+        padding: 0;
+        flex-direction: column;
+        border: 4px double #666;
+        border-collapse: collapse;
+        border-radius: 1rem;
+        overflow: hidden;
+        background-color: light-dark(rgb(14, 11, 30), rgb(30, 25, 57));
+    }
+    .header {
+        display: flex;
+        flex-direction: row;
+        margin: 0;
+        padding: 0.5rem 0.8rem;
+        justify-content: space-between;
+        font-size: 1.05rem;
+        font-family: 'Inter','Roboto',sans-serif;
+        color: light-dark(rgb(220, 220, 220), rgb(150, 150, 150));
+        border-bottom: 2px solid #666;
+        background-color: light-dark(rgb(28, 23, 56), rgb(28, 23, 57));
+        border-collapse: separate;
+    }
+    .header > div {
+        border-collapse: separate;
+        gap: 0.1rem;
+    }
+    span.lang {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+    }
+    button.tab {
+        outline: none;
+        border: none;
+        border-collapse: separate;
+        justify-items: center;
+        align-content: center;
+        padding: 0.4rem 0.6rem;
+        font-size: 1.15rem;
+        width: auto;
+        height: 100%;
+        font-family: 'Roboto Mono', sans-serif;
+        background-color: inherit;
+    }
+    button.current {
+        color: #fff;
+        background-color: light-dark(rgba(51, 42, 103, 0.7), rgba(53, 43, 109, 0.7));
+        margin: 0.1rem;
+    }
+    button:not(.current) {
+        color: #ccc;
+    }
+    .body {
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    button#copy-install {
+        opacity: 0;
+        align-self: center;
+        margin: 0 0.5rem 0 auto;
+        margin-left: auto;
+        padding: 0.25rem 0.5rem;
+        border: none;
+        border-radius: 0.25rem;
+        background-color: #333;
+        color: white;
+        font-family: 'Inter','Roboto',sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid #ccc;
+    }
+    button#copy-install:hover {
+        background-color: #555;
+    }
+    button#copy-install:active {
+        background-color: #444;
+        scale: 1.15;
+    }
+    div.container:hover button#copy-install {
+        /* display: block; */
+        opacity: 1;
+    }
+</style>

@@ -1,0 +1,89 @@
+---
+type Props ={
+    type: 'note' | 'tip' | 'warning' | 'danger' | 'info';
+    title?: string;
+}
+const { type, title } = Astro.props;
+
+function getIcon(type: Props['type']) {
+    switch(type) {
+        case 'danger':
+        case 'warning':
+            return 'warning-outline'
+        case 'tip':
+            return 'bulb-outline'
+        case 'note':
+        case 'info':
+            return 'information-circle-outline'
+        default:
+            return 'alert-outline'
+    }
+}
+---
+
+<div class={`callout callout-${type}`}>
+    <div class="title">
+        <ion-icon style="font-size:24px;" name={getIcon(type)}></ion-icon>
+        <span>{title ?? type.toUpperCase()}</span>
+    </div>
+    <div class="callout-content">
+        <slot />
+    </div>
+</div>
+
+<style>
+    div.callout-note, 
+    div.callout-tip, 
+    div.callout-warning, 
+    div.callout-danger, 
+    div.callout-info,
+    div.callout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        font-display: unset;
+        font-family: 'Inter', 'Roboto',Arial, Helvetica, sans-serif;
+        margin: 1rem 0.15rem;
+        padding: 1rem;
+        color: var(--txt-color);
+        --bg-color: oklab(from var(--txt-color) 100% a b);
+        background-color: oklch(from var(--bg-color) 100% 40% h);
+        border-radius: 0.4rem;
+        border: 1px var(--txt-color) solid;
+        border-left: 5px var(--txt-color) solid;
+    }
+    div.callout-note {
+        --txt-color: black;
+    } 
+    div.callout-tip {
+        --txt-color: brown;
+    } 
+    div.callout-warning {
+        --txt-color: orangered;
+    } 
+    div.callout-danger {
+        --txt-color: red;
+    } 
+    div.callout-info {
+        --txt-color: blue;
+    }
+    div.title {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.4rem;
+        width: 100%;
+        padding: 0.2rem;
+        font-weight: bolder;
+        border-bottom: 1px solid var(--txt-color);
+    }
+    .title * {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+</style>

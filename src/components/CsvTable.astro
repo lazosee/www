@@ -1,0 +1,68 @@
+---
+const csvRows = (await Astro.slots.render('default'))
+    .slice(3, -4)
+    .split('</p><hr/><p>');
+
+const csvColumns = csvRows.map(r => r.split(','))
+---
+
+<table>
+    <thead>
+        <tr>
+            {csvColumns.slice(0,1).map(h => (
+                h.map(hi => (
+                    <th>{hi}</th>
+                ))
+            ))}
+        </tr>
+    </thead>
+    <tbody>
+        {csvColumns.slice(1).map((b, i) => (
+            <tr>
+                {b.map(bi => (
+                    <td>{bi}</td>
+                ))}
+            </tr>
+        ))}
+    </tbody>
+</table>
+
+<style>
+    .table-container {
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    table {
+        width: 100%;
+        height: auto;
+        text-align: left;
+        border: 1px solid #666;
+    }
+    table, th, td {
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 0.6rem;
+        border-bottom: 1px solid #666;
+    }
+    th {
+        background-color: rgb(22, 11, 93);
+        color: #f2f2f2;
+        font-weight: bolder;
+        font-family: 'Inter', 'Roboto', sans-serif;
+        font-size: 1.15rem;
+    }
+    td {
+        color: black;
+        font-size: 1rem;
+    }
+    tr:nth-child(even) {
+        background-color: #f0f0f0;
+    }
+    tr:nth-child(odd) {
+        background-color: #fff;
+    }
+    tr:hover {
+        background-color: rgb(183, 172, 255);
+    }
+</style>
