@@ -4,6 +4,67 @@
 @import '@fontsource/atkinson-hyperlegible';
 @import '@fontsource/syne';
 
+@import url('./typography.css');
+@import url('./position.css');
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	position: relative;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+.font-mono {
+	font-family: 'Roboto Mono', monospace;
+}
+.font-roboto {
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+.font-jetbrains-mono {
+	font-family: 'Jetbrains Mono', monospace;
+}
+.font-atkinson {
+	font-family: 'Atkinson Hyperlegible', Verdana, Geneva, Tahoma, sans-serif;
+}
+.font-syne {
+	font-family: 'Syne', Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body,
+main,
+section {
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+[data-sr] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+	white-space: nowrap;
+}
+
+.btn {
+	margin: 1rem 0.4rem;
+	padding: 0.6rem 1rem;
+	border: 2px solid hsl(0 0 50);
+	border-radius: 1rem;
+	text-decoration: none;
+	background-color: hsl(0 0 80);
+	font-family: 'Syne';
+	font-size: 1.25rem;
+}
+
 article.post {
 	font-size: 1.25rem;
 	font-family: 'Atkinson Hyperlegible', 'Inter', Arial, Helvetica, sans-serif;

@@ -1,5 +1,6 @@
 ---
 import { Fragment } from "astro/jsx-runtime"
+import { Image } from "astro:assets"
 import { Slot } from "../components/main"
 import Base from "../layouts/base.astro"
 ---
@@ -17,9 +18,153 @@ import Base from "../layouts/base.astro"
 		/>
 	</Slot>
 
-	<main>
-		<section>
-			<h1>Lazaro Osee</h1>
+	<main class="font-atkinson">
+		<section class="hero">
+			<div class="body">	
+				<div class="l" style="flex: 1;">
+					<h1 class="font-syne">Lazaro Osee</h1>
+					<p class="subtitle">
+						I am an Architecture Student and a <strong>self taught</strong> Software Developer
+					</p>
+					<div class="socials">
+						<a title="Main Github Account" target="_blank" aria-label="Main Github Account" href="https://github.com/lazosee">
+							<ion-icon style="font-size:32px;color:black;" name="logo-github"></ion-icon>
+							<span data-sr>Main Github Account</span>
+						</a>
+						<a title="X Account" target="_blank" aria-label="X Account" href="https://x.com/thedevequation">
+							<ion-icon src="/logo/twitter.svg" style="font-size: 26px;" ></ion-icon>
+							<span data-sr>X Account</span>
+						</a>
+						<a title="Bluesky Profile" target="_blank" aria-label="Bluesky Profile" href="https://bsky.app/profile/lazaroosee.xyz">
+							<ion-icon src="/logo/bluesky.svg" style="font-size: 26px;" ></ion-icon>
+							<span data-sr>Bluesky Profile</span>
+						</a>
+						<a title="Facebook Account" target="_blank" aria-label="Facebook Account" href="https://www.facebook.com/profile.php?id=61579239389249">
+							<ion-icon style="font-size:32px;color:#3d5a98;" name="logo-facebook"></ion-icon>
+							<span data-sr>Facebook Profile</span>
+						</a>
+						<a title="Youtube Channel" target="_blank" aria-label="Youtube Channel" href="https://www.youtube.com/@lazosee">
+							<ion-icon style="font-size:32px;color:red;" name="logo-youtube"></ion-icon>
+							<span data-sr></span>
+						</a>
+					</div>
+				</div>
+				<div class="profile r">
+					<Image alt="profile" src="https://avatars.githubusercontent.com/u/132367324?v=4" width="100" height="100" format="webp" about="profile image" loading="eager" />
+				</div>
+			</div>
+		</section>
+		<section class="posts">
+			<h2>
+				<ion-icon size="medium" name="journal"></ion-icon>
+				<span>Posts</span>
+			</h2>
+			<div></div>
 		</section>
 	</main>
 </Base>
+
+<style>
+	main {
+		justify-items: center;
+	}
+	section {
+		padding: 1rem;
+		/* border: 2px dashed hsl(246 60 60); */
+	}
+	.hero {
+		display: block;
+		justify-items: center;
+		align-content: center;
+		padding-bottom: 0;
+		/* border: 2px dashed hsl(246 60 60); */
+	}
+	.hero .body {
+		display: flex;
+		flex-direction: column;
+		min-height: 50svh;
+		align-content: center;
+		justify-content: space-between;
+	}
+
+	.hero .body div:not(.socials) {
+		align-content: center;
+		justify-items: flex-start;
+		padding: 0.4rem;
+		/* border: 2px solid red; */
+	}
+	.hero .body div:nth-child(1) {
+		flex: 1;
+	}
+
+	.posts {
+		width: 94%;
+		min-height: 20svh;
+		margin-block-start: 2rem;
+		padding: 1rem;
+		border: 4px double hsl(0 0 10);
+		background-color: hsl(240, 16%, 88%);
+		border-top-left-radius: 4rem;
+		border-top-right-radius: 4rem;
+		border-bottom: none;
+		align-content: center;
+		justify-items: center;
+	}
+	.posts h2 {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 0.6rem;
+	}
+	.posts div {
+		justify-items: center;
+		align-content: center;
+	}
+
+	.socials {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+		/* border: 2px solid fuchsia; */
+	}
+
+	.socials a {
+		display: flex;
+		flex-direction: column;
+		padding: 0.4rem;
+		margin: 0.2rem;
+	}
+
+	.profile {
+		flex: 0.8;
+		width: auto;
+	}
+	.profile img {
+		width: 100%;
+		box-sizing: border-box;
+		height: auto;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 6px double hsl(0 0 60);
+	}
+
+	@media (min-width: 768px) {
+		section {
+			padding: 1rem 5rem;
+		}
+		.hero .body {
+			flex-direction: row;
+		}
+		.posts {
+			/* min-width: 70%;
+			max-width: 80%; */
+		}
+		.socials {
+			width: auto;
+			justify-items: flex-start;
+			align-content: center;
+		}
+	}
+</style>
