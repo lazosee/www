@@ -1,3 +1,4 @@
-export * from './copy'
-export * from './image'
-export * from './slug'
+export { copy_to_clipboard } from './copy'
+export { formatDate } from './date'
+export { getImageExtension } from './image'
+export { slugify } from './slug'

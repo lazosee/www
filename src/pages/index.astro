@@ -1,8 +1,15 @@
 ---
 import { Fragment } from "astro/jsx-runtime"
 import { Image } from "astro:assets"
-import { Slot } from "../components/main"
+import { getCollection } from "astro:content"
+import { FeaturedPost, Slot } from "../components/main"
 import Base from "../layouts/base.astro"
+
+// Get 1st FIVE LATEST posts
+const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !e.data.draft))
+	.slice(0, 5)
+	.map(post => ({ ...post.data, slug: post.slug }))
+	.sort((a, b) => Number(b.published_at) - Number(a.published_at));
 ---
 
 <Base title="Lazaro Osee">
@@ -56,10 +63,25 @@ import Base from "../layouts/base.astro"
 		</section>
 		<section class="posts">
 			<h2>
-				<ion-icon size="medium" name="journal"></ion-icon>
-				<span>Posts</span>
+				{/* <ion-icon size="medium" name="journal"></ion-icon> */}
+				<span>Blog Posts</span>
 			</h2>
-			<div></div>
+			<p class="subtitle">
+				Explore my latest blog posts and learn the cutting-edge concepts
+			</p>
+			<div class="post-items">
+				<FeaturedPost data-key="0" post={posts[0]} data-post-item />
+				<div class="items">
+					{posts.slice(1).map((post, i) => (
+						<FeaturedPost data-key={`${i+1}`} {post} data-post-item />
+					))}
+				</div>
+			</div>
+			<div class="posts-foot">
+				<a href="/posts/" hreflang="en-us" class="btn">
+					View All Posts
+				</a>
+			</div>
 		</section>
 	</main>
 </Base>
@@ -96,31 +118,6 @@ import Base from "../layouts/base.astro"
 	.hero .body div:nth-child(1) {
 		flex: 1;
 	}
-
-	.posts {
-		width: 94%;
-		min-height: 20svh;
-		margin-block-start: 2rem;
-		padding: 1rem;
-		border: 4px double hsl(0 0 10);
-		background-color: hsl(240, 16%, 88%);
-		border-top-left-radius: 4rem;
-		border-top-right-radius: 4rem;
-		border-bottom: none;
-		align-content: center;
-		justify-items: center;
-	}
-	.posts h2 {
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		gap: 0.6rem;
-	}
-	.posts div {
-		justify-items: center;
-		align-content: center;
-	}
-
 	.socials {
 		display: flex;
 		width: 100%;
@@ -150,21 +147,91 @@ import Base from "../layouts/base.astro"
 		border: 6px double hsl(0 0 60);
 	}
 
+	.posts {
+		width: 94%;
+		min-height: 20svh;
+		margin-block-start: 2rem;
+		padding: 1rem;
+		border: 4px double var(--color-black);
+		background-color: var(--color-accent);
+		border-top-left-radius: 2rem;
+		border-top-right-radius: 2rem;
+		border-bottom: none;
+		align-content: center;
+		justify-items: center;
+	}
+	.posts h2 {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 0.6rem;
+	}
+	.posts div {
+		justify-items: center;
+		align-content: center;
+	}
+	.post-items {
+	}
+	[data-post-item] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding: 1rem;
+		margin-block: 1rem;
+		border-radius: 1rem;
+        background-color: rgba(180, 180, 180, 0.4);
+	}
+
+	.posts-foot {
+		position: relative;
+		box-sizing: border-box;
+		width: 100%;
+		justify-items: center;
+		align-content: center;
+		/* border: 2px solid var(--color-black); */
+	}
+	.btn {
+		min-width: min(100%, 20rem);
+		box-sizing: border-box;
+		text-align: center;
+		border: 3px double hsl(0 0 10);
+		background-color: var(--color-primary);
+	}
+
 	@media (min-width: 768px) {
 		section {
 			padding: 1rem 5rem;
 		}
 		.hero .body {
 			flex-direction: row;
+			gap: 2rem;
 		}
 		.posts {
-			/* min-width: 70%;
-			max-width: 80%; */
+			min-width: 70%;
+			max-width: 80%;
+			border-top-left-radius: 4rem;
+			border-top-right-radius: 4rem;
 		}
 		.socials {
 			width: auto;
 			justify-items: flex-start;
 			align-content: center;
 		}
+	}
+
+	@media (min-width: 980px) {
+		.post-items .items {
+			display: grid;
+			gap: 1rem;
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.post-items > [data-post-item]:first-of-type:has([data-key="0"]) {
+			justify-content: center;
+			align-items: center;
+			padding-inline: 2rem;
+			margin-bottom: 1rem;
+		}
+		[data-post-item] {}
 	}
 </style>
