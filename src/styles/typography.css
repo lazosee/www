@@ -8,7 +8,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Syne Variable', 'Syne', 'Atkinson Hyperlegible', Arial, Helvetica, sans-serif;
+	font-family: 'Syne Variable', 'Syne', 'Atkinson Hyperlegible', Arial, Helvetica, sans-serif !important;
 }
 h1 {
 	font-size: 2.6rem;

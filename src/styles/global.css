@@ -8,6 +8,13 @@
 @import url('./typography.css');
 @import url('./position.css');
 
+@font-face {
+	font-family: 'Syne Variable';
+	src: url('/Syne[wght].ttf') format('truetype-variations');
+	font-weight: 100 900;
+	font-stretch: 25% 151%;
+}
+
 *,
 *::before,
 *::after {
@@ -30,6 +37,9 @@ html {
 }
 .font-atkinson {
 	font-family: 'Atkinson Hyperlegible', Verdana, Geneva, Tahoma, sans-serif;
+}
+.font-syne-var {
+	font-family: 'Syne Variable', 'Syne';
 }
 .font-syne {
 	font-family: 'Syne', Verdana, Geneva, Tahoma, sans-serif;
@@ -68,6 +78,13 @@ section {
 	font-family: 'Syne';
 	font-size: 1.25rem;
 	font-weight: 600;
+}
+
+ion-icon {
+	transition: all ease 0.3s;
+}
+ion-icon:hover {
+	scale: 1.2;
 }
 
 article.post {

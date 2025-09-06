@@ -2,6 +2,7 @@
 import { Fragment } from "astro/jsx-runtime"
 import { Image } from "astro:assets"
 import { getCollection } from "astro:content"
+import ProfileImage from '../assets/profile.jpg'
 import { FeaturedPost, Slot } from "../components/main"
 import Base from "../layouts/base.astro"
 
@@ -57,12 +58,13 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 					</div>
 				</div>
 				<div class="profile r">
-					<Image alt="profile" src="https://avatars.githubusercontent.com/u/132367324?v=4" width="100" height="100" format="webp" about="profile image" loading="eager" />
+					<Image alt="profile" src={ProfileImage} width="460" height="460" format="webp" about="profile image" loading="eager" quality="max" />
 				</div>
 			</div>
 		</section>
+
 		<section class="posts">
-			<h2>
+			<h2 class="font-syne-var">
 				{/* <ion-icon size="medium" name="journal"></ion-icon> */}
 				<span>Blog Posts</span>
 			</h2>
@@ -83,10 +85,15 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 				</a>
 			</div>
 		</section>
+		
+		<section class="projects">
+			<h2 class="font-syne-var">Projects</h2>
+		</section>
 	</main>
 </Base>
 
 <style>
+	/* ALL */
 	main {
 		justify-items: center;
 	}
@@ -94,6 +101,8 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		padding: 1rem;
 		/* border: 2px dashed hsl(246 60 60); */
 	}
+
+	/* HERO SECTION */
 	.hero {
 		display: block;
 		justify-items: center;
@@ -125,14 +134,12 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		align-items: center;
 		/* border: 2px solid fuchsia; */
 	}
-
 	.socials a {
 		display: flex;
 		flex-direction: column;
 		padding: 0.4rem;
 		margin: 0.2rem;
 	}
-
 	.profile {
 		flex: 0.8;
 		width: auto;
@@ -147,11 +154,13 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		border: 6px double hsl(0 0 60);
 	}
 
+	/* POSTS SECTION */
 	.posts {
 		width: 94%;
 		min-height: 20svh;
 		margin-block-start: 2rem;
 		padding: 1rem;
+		padding-bottom: 3rem;
 		border: 4px double var(--color-black);
 		background-color: var(--color-accent);
 		border-top-left-radius: 2rem;
@@ -182,7 +191,6 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		border-radius: 1rem;
         background-color: rgba(180, 180, 180, 0.4);
 	}
-
 	.posts-foot {
 		position: relative;
 		box-sizing: border-box;
@@ -196,9 +204,27 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		box-sizing: border-box;
 		text-align: center;
 		border: 3px double hsl(0 0 10);
-		background-color: var(--color-primary);
+		background-color:  hsl(from var(--color-primary) h s 76%);
+	}
+	.btn:hover {
+		background-color: hsl(from var(--color-primary) h s 68%);
+	}
+	
+	/* PROJECTS SECTION */
+	.projects {
+		width: 100%;
+		min-height: 10svh;
+		color: var(--color-white, #fff);
+		background-color: var(--color-black);
+	}
+	.projects > * {
+		color: var(--color-white, #fff);
+	}
+	.projects h2 {
+		text-align: center;
 	}
 
+	/* MEDIA QUERIES */
 	@media (min-width: 768px) {
 		section {
 			padding: 1rem 5rem;

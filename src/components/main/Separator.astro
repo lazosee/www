@@ -1,0 +1,15 @@
+---
+type Props = {
+    orientation?: 'vertical' | 'horizontal';
+    style?: 'double' | 'solid' | 'dotted' | 'dashed';
+    color?: string;
+    size?: `${number}px` | `${number}rem` | `${number}em`;
+}
+const { orientation = 'horizontal', style = 'solid', size = '4px', color = "var(--color-black, #111)" } = Astro.props;
+---
+
+{orientation === 'vertical' ? (
+    <div style={`height: inherit;width: 0.2rem;background-color: transparent;border-right: ${size} ${style} ${color};`} />
+) : (
+    <div style={`height: auto;width: 100%;background-color: transparent;border-top: ${size} ${style} ${color};`} />
+)}
