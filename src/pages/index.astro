@@ -1,9 +1,11 @@
 ---
-import { Image } from "astro:assets"
-import { getCollection } from "astro:content"
-import ProfileImage from '../assets/profile.jpg'
-import { FeaturedPost, NewsletterForm, Slot } from "../components/main"
-import Base from "../layouts/base.astro"
+export const prerender = true;
+
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import ProfileImage from '../assets/profile.jpg';
+import { FeaturedPost, NewsletterForm, Slot } from "../components/main";
+import Base from "../layouts/base.astro";
 
 // Get 1st FIVE LATEST posts
 const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !e.data.draft))
