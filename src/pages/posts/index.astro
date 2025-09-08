@@ -38,7 +38,7 @@ const posts = (await getCollection('post'))
     <section>
         <div data-kind="mobile">
             <div>
-                {categories.map(category => (
+                {categories.length > 0 && categories.map(category => (
                     <a href={`/?category=${category.id}`} hreflang="en-us">
                         {category.title}
                     </a>
@@ -50,13 +50,16 @@ const posts = (await getCollection('post'))
             <Tab>
                 <TabItem title="All">
                     <!-- <PostsPartial posts={posts} /> -->
-                    {posts.map(post => (
-                        <PostCard {post} />
-                    ))}
+                    {posts.length > 0 ? posts.map(post => <PostCard {post} />
+                    ) : (
+                        <div>
+                            <p>No posts found</p>
+                        </div>
+                    )}
                 </TabItem>
-                {categories.map(category => (
+                {categories.length > 0 && categories.map(category => (
                     <TabItem title={category.title}>
-                        {posts.filter(p => p.category == category.id).map(post => (
+                        {posts.length > 0 && posts.filter(p => p.category == category.id).map(post => (
                             <PostCard {post} />
                         ))}
                     </TabItem>
