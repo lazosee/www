@@ -1,9 +1,8 @@
 ---
-import { Fragment } from "astro/jsx-runtime"
 import { Image } from "astro:assets"
 import { getCollection } from "astro:content"
 import ProfileImage from '../assets/profile.jpg'
-import { FeaturedPost, Slot } from "../components/main"
+import { FeaturedPost, NewsletterForm, Slot } from "../components/main"
 import Base from "../layouts/base.astro"
 
 // Get 1st FIVE LATEST posts
@@ -30,7 +29,7 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		<section class="hero">
 			<div class="body">	
 				<div class="l" style="flex: 1;">
-					<h1 class="font-syne">Lazaro Osee</h1>
+					<h1 class="font-syne-var">Lazaro Osee</h1>
 					<p class="subtitle">
 						I am an Architecture Student and a <strong>self taught</strong> Software Developer
 					</p>
@@ -55,6 +54,15 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 							<ion-icon style="font-size:32px;color:red;" name="logo-youtube"></ion-icon>
 							<span data-sr></span>
 						</a>
+					</div>
+
+					<div class="hero-contact">
+						<a 
+							href="/contact"
+							hreflang="en-us"
+							title="contact me"
+							class="button font-atkinson font-syne font-syne-var"
+						>contact me</a>
 					</div>
 				</div>
 				<div class="profile r">
@@ -85,9 +93,31 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 				</a>
 			</div>
 		</section>
+
+		<section class="newsletter">
+			<div class="body">
+				<h2>Subscribe to my newsletter</h2>
+				<!-- <p class="subtitle">
+					Join my list of subscribers to get new content directly in your inbox instantly when they are created
+				</p> -->
+				<p class="subtitle">
+					These are stuff that Lazaro learns and finds interesting. 
+					It's usually under 200 words. Sometimes we make stuff together. 
+					<br/>
+					Get <strong>free</strong> and <strong>instant</strong> access now.
+					<!-- Archives are <a href="https://archives.lazaroosee.xyz">here: archives.lazaroosee.xyz</a> -->
+				</p>
+
+				<NewsletterForm />
+			</div>
+		</section>
 		
 		<section class="projects">
 			<h2 class="font-syne-var">Projects</h2>
+
+			<div>
+				<p class="subtitle">More projects will appear here...</p>
+			</div>
 		</section>
 	</main>
 </Base>
@@ -117,7 +147,6 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		align-content: center;
 		justify-content: space-between;
 	}
-
 	.hero .body div:not(.socials) {
 		align-content: center;
 		justify-items: flex-start;
@@ -140,6 +169,27 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		padding: 0.4rem;
 		margin: 0.2rem;
 	}
+	.hero-contact {
+		display: flex;
+		height: auto;
+		width: 100%;
+		margin-block: 2rem 1rem;
+		padding: 0;
+		justify-content: center;
+	}
+	.hero-contact .button {
+		padding: 0.5rem 2rem;
+		font-family: 'Syne Variable', 'Syne', 'Inter';
+		font-size: 1.45rem;
+		border-radius: 0.6rem;
+		transition: all 0.3s ease-in-out;
+		border: 3px solid var(--color-primary);
+		background-color: var(--color-accent);
+		text-decoration: none;
+	}
+	.hero-contact .button:hover {
+		background-color: hsl( from var(--color-accent) h s 80%);
+	}
 	.profile {
 		flex: 0.8;
 		width: auto;
@@ -152,6 +202,13 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 		object-fit: cover;
 		border-radius: 50%;
 		border: 6px double hsl(0 0 60);
+		mask: url('../assets/splatter-mask.png') center / 105% no-repeat;
+		transition: mask-size 0.75s ease-in-out;
+		transition-delay: 0.25s;
+	}
+	.hero:hover img, .hero:focus-visible img {
+		mask-size: 250%;
+		transition-delay: 0s;
 	}
 
 	/* POSTS SECTION */
@@ -212,19 +269,53 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 	
 	/* PROJECTS SECTION */
 	.projects {
+		width: 94%;
+		min-height: 20svh;
+		margin-block-end: 2rem;
+		padding: 1rem;
+		padding-top: 3rem;
+		border: 4px double var(--color-black);
+		background-color: var(--color-accent);
+		border-bottom-left-radius: 2rem;
+		border-bottom-right-radius: 2rem;
+		border-top: none;
+		align-content: center;
+		justify-items: center;
+	}
+
+	/* NEWSLETTER SECTION */
+	.newsletter {
+		border: 4px solid var(--color-primary);
+		background-image: url(../assets/envelope+out.jpg);
+		background-size: cover;
+		background-position: center;
+		aspect-ratio: auto;
+	}
+	.newsletter, .newsletter h2, .newsletter div, .newsletter p {
+		justify-items: center;
+		align-content: center;
 		width: 100%;
-		min-height: 10svh;
-		color: var(--color-white, #fff);
-		background-color: var(--color-black);
+		background-color: transparent;
 	}
-	.projects > * {
-		color: var(--color-white, #fff);
+	.newsletter .body {
+		padding: 1rem 2rem;
+		background-color: #ffffff66;
+		backdrop-filter: blur(2px);
+		border-radius: 2rem;
 	}
-	.projects h2 {
+	h2 {
 		text-align: center;
+	}
+	.newsletter p {
+		padding-inline: 1rem;
 	}
 
 	/* MEDIA QUERIES */
+	@media (min-width: 580px) {
+		.newsletter {
+			background-image: url(../assets/envelope+in.jpg);
+		}
+	}
 	@media (min-width: 768px) {
 		section {
 			padding: 1rem 5rem;
@@ -233,16 +324,40 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 			flex-direction: row;
 			gap: 2rem;
 		}
-		.posts {
+		.hero-contact {
+			margin-top: 5rem;
+			justify-content: flex-start;
+		}
+		.posts, .projects {
 			min-width: 70%;
 			max-width: 80%;
+		}
+		.posts {
 			border-top-left-radius: 4rem;
 			border-top-right-radius: 4rem;
+		}
+		.projects {
+			border-bottom-left-radius: 4rem;
+			border-bottom-right-radius: 4rem;
 		}
 		.socials {
 			width: auto;
 			justify-items: flex-start;
 			align-content: center;
+		}
+		.newsletter {
+			width: 90%;
+			padding-bottom: 4rem;
+			border-radius: 2rem;
+			aspect-ratio: 16/8;
+			background-image: url(../assets/envelope+flower.jpg);
+		}
+		.newsletter .body, .newsletter p {
+			min-width: 70%;
+			max-width: 80%;
+		}
+		.newsletter p {
+			padding-inline: 3rem;
 		}
 	}
 

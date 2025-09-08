@@ -7,14 +7,18 @@
 		"@fontsource/roboto": "^5.2.6",
 		"@fontsource/roboto-mono": "^5.2.6",
 		"@fontsource/syne": "^5.2.6",
+		"@lion/ui": "^0.14.3",
 		"@lueur/blog-utils": "^1.20250824.11",
-		"astro": "^5.13.5"
+		"astro": "^5.13.5",
+		"dompurify": "^3.2.6",
+		"resend": "^6.0.2"
 	},
 	"name": "www",
 	"scripts": {
 		"astro": "astro",
 		"build": "astro build",
 		"dev": "astro dev --host",
+		"email": "email dev",
 		"preview": "astro preview"
 	},
 	"type": "module",

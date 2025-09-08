@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry, type CollectionEntry } from 'astro:content';
+import { formatDate } from '../../helpers';
+export type Props = {
+    post: CollectionEntry<'post'>['data'] & { slug: string }
+}
+const { post } = Astro.props;
+---
+
+<article>
+    <div>
+        <Image 
+            src={post.image} 
+            alt={post.title} 
+        />
+    </div>
+    <div>
+        <h3>
+            <a href={`/posts/${post.slug}`}>{post.title}</a>
+        </h3>
+        <div>
+            <time datetime={post.published_at.toISOString()}>
+                {formatDate(post.published_at)}
+            </time>
+            <span>•</span>
+            <a href={`/categories/${post.category}`} hreflang="en-us">
+                {(await getEntry('category', post.category))?.data.title}
+            </a>
+            <div>
+                {post.tags.map(tag => (
+                    <span data-tag>
+                        {tag}
+                    </span>
+                ))}
+            </div>
+        </div>
+        <div class="subtitle">
+            {post.summary}
+        </div>
+    </div>
+</article>

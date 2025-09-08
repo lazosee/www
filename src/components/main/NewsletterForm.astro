@@ -1,0 +1,225 @@
+---
+---
+
+<div class="newsletter-container">
+  <form id="newsletter-form" class="newsletter-form">
+    <div class="input-container">
+      <div class="icon-container">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2" stroke="#ffffff" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" stroke="#ffffff" />
+        </svg>
+      </div>
+      <input
+        id="email-input"
+        type="email"
+        placeholder="me@example.com"
+        class="email-input"
+        required
+      />
+    </div>
+
+    <div class="button-container">
+      <button
+        id="submit-button"
+        type="submit"
+        class="submit-button"
+      >
+        Subscribe
+      </button>
+    </div>
+  </form>
+</div>
+
+<style>
+  :root {
+    --card-background: #202a38; /* Example dark color */
+    --background: #101d34; /* Example even darker color */
+    --text-color: #d9e2ea; /* Example light gray for text */
+    --muted-foreground: #8b949e; /* Example muted gray */
+    --primary: var(--color-primary, #58a6ff); /* Example primary color */
+    --newsletter-gradient: linear-gradient(90deg, var(--color-primary), var(--color-accent)); /* Example gradient */
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  w-full max-w-md mx-auto
+  */
+  .newsletter-container {
+    width: 100%;
+    max-width: 28rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  flex flex-col sm:flex-row gap-3 p-2 rounded-2xl bg-card shadow-newsletter-glow transition-all duration-300 hover:shadow-newsletter focus-within:shadow-newsletter
+  */
+  .newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    background-color: var(--card-background);
+    transition: all 300ms ease-in-out;
+    box-shadow: 0 0 10px 0px rgba(92, 194, 252, 0.4);
+  }
+  @media (min-width: 640px) {
+    .newsletter-form {
+      flex-direction: row;
+    }
+  }
+  .newsletter-form:hover {
+    box-shadow: 0 0 20px 0px rgba(92, 194, 252, 0.6);
+  }
+  .newsletter-form:focus-within {
+    box-shadow: 0 0 20px 0px rgba(92, 194, 252, 0.6);
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  flex-1 relative group
+  */
+  .input-container {
+    flex: 1 1 0%;
+    position: relative;
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors duration-200
+  */
+  .icon-container {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-foreground);
+    transition: color 200ms ease-in-out;
+  }
+  .input-container:focus-within .icon-container {
+    color: #f2f2f2;
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  pl-12 h-14 border-0 bg-background/50 focus:bg-background transition-all duration-200 placeholder:text-muted-foreground/60 text-base
+  */
+  .email-input {
+    padding-left: 3rem;
+    height: 3.5rem;
+    border-width: 0;
+    background-color: rgba(1, 4, 9, 0.5);
+    transition: all 200ms ease-in-out;
+    font-size: 1rem;
+    color: var(--text-color);
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+  .email-input:focus {
+    background-color: var(--background);
+    outline: none;
+  }
+  .email-input::placeholder {
+    color: rgba(139, 148, 158, 0.6);
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  w-full sm:w-auto
+  */
+  .button-container {
+    width: 100%;
+  }
+  @media (min-width: 640px) {
+    .button-container {
+      width: auto;
+    }
+  }
+
+  /*
+  --- Tailwind CSS class to pure CSS conversion ---
+  w-full sm:w-auto h-14 px-8 bg-newsletter-gradient hover:opacity-90 border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-medium text-base
+  */
+  .submit-button {
+    width: 100%;
+    height: 3.5rem;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    background-image: var(--newsletter-gradient);
+    border: none;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 300ms ease-in-out;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--color-black);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    font-family: 'Syne Variable', 'Syne', 'Inter';
+  }
+  @media (min-width: 640px) {
+    .submit-button {
+      width: auto;
+    }
+  }
+  .submit-button:hover {
+    opacity: 0.9;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: scale(1.02);
+  }
+  .submit-button:active {
+    transform: scale(0.98);
+  }
+
+  .submit-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .loading-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('newsletter-form') as HTMLFormElement;
+  const emailInput = document.getElementById('email-input') as HTMLInputElement;
+  const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!emailInput.value) {
+      alert("Email required: Please enter your email address.");
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.innerHTML = `<div class="flex items-center gap-2"><div class="loading-spinner"></div> Subscribing...</div>`;
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    alert("Successfully subscribed! Thank you for joining our newsletter.");
+    emailInput.value = "";
+    submitButton.disabled = false;
+    submitButton.innerHTML = "Subscribe";
+  });
+</script>

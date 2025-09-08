@@ -1,0 +1,97 @@
+---
+import { getCollection } from "astro:content";
+import { PostCard, Slot } from "../../components/main";
+import { Tab, TabItem } from '../../components/tabs';
+import Base from "../../layouts/base.astro";
+
+const categories = (await getCollection('category'))
+    .map(cat => ({
+        id: cat.id,
+        title: cat.data.title,
+        slug: cat.data.slug ?? cat.data.slug
+    }))
+
+const posts = (await getCollection('post'))
+    .map(post => 
+    ({ 
+        ...post.data, 
+        slug: post.slug,
+    }))
+    .sort((a, b) => Number(b.updated_at) - Number(a.updated_at));
+---
+
+<Base title="Lazaro Osee">
+	<Slot slot="head">
+		<meta name="author" content="Lazaro Osee" />
+		<meta 
+			name="description" 
+			content="The 'Official' Personnal Website and Blog of Lazaro Osee, an Architecture Student and a 'self taught' Software Developer" 
+		/>
+		<meta 
+			name="keywords" 
+			content="Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts" 
+		/>
+	</Slot>
+
+    <section>
+        <div data-kind="mobile">
+            <div>
+                {categories.map(category => (
+                    <a href={`/?category=${category.id}`} hreflang="en-us">
+                        {category.title}
+                    </a>
+                ))} 
+            </div>
+            <div class="body" data-posts={JSON.stringify(posts)}></div>
+        </div>
+        <div data-kind="tabs">
+            <Tab>
+                <TabItem title="All">
+                    <!-- <PostsPartial posts={posts} /> -->
+                    {posts.map(post => (
+                        <PostCard {post} />
+                    ))}
+                </TabItem>
+                {categories.map(category => (
+                    <TabItem title={category.title}>
+                        {posts.filter(p => p.category == category.id).map(post => (
+                            <PostCard {post} />
+                        ))}
+                    </TabItem>
+                ))}
+            </Tab>
+        </div>
+    </section>
+</Base>
+
+<script>
+    import type { CollectionEntry } from "astro:content";
+
+    type Post = CollectionEntry<'post'>['data'] & { slug: string };
+
+    if (window.matchMedia('(max-width: 640px)').matches) {
+        const posts = JSON.parse(
+            (document.querySelector('[data-posts]') as HTMLDivElement)
+                .getAttribute('data-posts') as string
+        ) as Post[];
+        console.log(posts)
+    }
+</script>
+
+<style>
+    [data-kind="mobile"] {
+        display: contents;
+    }
+    [data-kind="tabs"] {
+        display: none;
+    }
+
+    @media(min-width: 640px) {
+        [data-kind="mobile"] {
+            display: none;
+        }
+        [data-kind="tabs"] {
+            display: contents;
+        }
+    }
+</style>

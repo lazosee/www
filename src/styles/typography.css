@@ -31,4 +31,24 @@ h6 {
 
 .subtitle {
 	font-size: 1.25rem;
+	text-align: center;
 }
+.intro-text {
+	text-align: center;
+	font-size: 1.15rem;
+	text-wrap: balance;
+}
+/* 
+input {
+	outline: none;
+	border: 2px solid var(--color-black);
+	line-height: 1.55rem;
+	font-size: 1.25rem;
+	padding: 0.6rem;
+	border-radius: 1rem;
+}
+input[type='email'] {
+	border-color: var(--color-primary);
+	border-width: 3px;
+	padding-inline-start: 2rem;
+} */

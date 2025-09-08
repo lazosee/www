@@ -1,0 +1,22 @@
+---
+export interface Props{
+    title: string
+}
+
+const { title = 'title' } = Astro.props;
+---
+
+<button slot="tab">{title}</button>
+<div slot="panel">
+    <slot />
+</div>
+
+{/*
+<style>
+    @media (max-width: 768px) {
+        button {
+            display: none;
+        }
+    }
+</style>
+*/}

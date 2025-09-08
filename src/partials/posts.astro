@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+type Props = { 
+    posts: (CollectionEntry<'post'>['data'] & { slug: string })[] 
+}
+const { posts } = Astro.props;
+
+// console.dir(data, { colors: true, depth: Infinity })
+---
+
+{posts.map(post => (
+    <article>
+        {post.category} • {post.title}
+    </article>
+))}
