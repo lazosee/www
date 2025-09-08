@@ -1,9 +1,20 @@
 ---
+import type { GetStaticPaths } from "astro";
 export const prerender = true;
 
+import { getCollection } from "astro:content";
 import { Slot } from "../../components/main";
 import Base from "../../layouts/base.astro";
 
+export const getStaticPaths = (async () => {
+	const categories = await getCollection('category');
+	return categories.map(category => ({
+		params: { category: category.id },
+		props: { category: category.data }
+	}));
+}) satisfies GetStaticPaths;
+
+const { category } = Astro.props;
 ---
 
 <Base title="Lazaro Osee">
@@ -18,4 +29,6 @@ import Base from "../../layouts/base.astro";
 			content="Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts" 
 		/>
 	</Slot>
+	<!-- TODO: Implement posts of a category -->
+	<pre>{JSON.stringify(category)}</pre>
 </Base>
