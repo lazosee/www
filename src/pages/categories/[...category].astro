@@ -10,7 +10,7 @@ export const getStaticPaths = (async () => {
 	const categories = await getCollection('category');
 	return categories.map(category => ({
 		params: { category: category.id },
-		props: { category: category.data }
+		props: { category: { ...category.data, slug: category.id } }
 	}));
 }) satisfies GetStaticPaths;
 
