@@ -82,12 +82,14 @@ const posts = (await getCollection('post', (e) => import.meta.env.DEV ? true : !
 				Explore my latest blog posts and learn the cutting-edge concepts
 			</p>
 			<div class="post-items">
-				<FeaturedPost data-key="0" post={posts[0]} data-post-item />
-				<div class="items">
-					{posts.slice(1).map((post, i) => (
-						<FeaturedPost data-key={`${i+1}`} {post} data-post-item />
-					))}
-				</div>
+				{posts.length > 0 && (
+					<FeaturedPost data-key="0" post={posts[0]} data-post-item />
+					<div class="items">
+						{posts.slice(1).map((post, i) => (
+							<FeaturedPost data-key={`${i+1}`} {post} data-post-item />
+						))}
+					</div>
+				)}
 			</div>
 			<div class="posts-foot">
 				<a href="/posts/" hreflang="en-us" class="btn">
