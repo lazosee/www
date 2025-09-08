@@ -1,22 +1,50 @@
 ---
+
 export interface Props{
-    title: string
+    category: {
+        id?: string;
+        slug: string;
+        title: string
+    };
 }
 
-const { title = 'title' } = Astro.props;
+const { category } = Astro.props;
 ---
 
-<button slot="tab">{title}</button>
+<a 
+    href={category.id ? `/posts?category=${category.id}` : '/posts'} 
+    id={`tab-${category.id ?? 'all'}`} 
+    slot="tab" 
+    data-id={category.id ?? 'all'}
+>
+    {category.title}
+</a>
 <div slot="panel">
     <slot />
 </div>
 
-{/*
 <style>
-    @media (max-width: 768px) {
-        button {
-            display: none;
-        }
+    div {
+        width: inherit;
+    }
+    [data-id] {
+        margin: 1.2rem 0.6rem;
+        text-decoration: none;
+        font-size: 1.05rem;
+        font-family: 'Syne Variable';
+    }
+    [data-id][aria-selected="true"] {
+        position: relative;
+        color: blue;
+    }
+    [data-id][aria-selected="true"]::after {
+        content: ''; /* The content property is mandatory */
+        position: absolute;
+        bottom: 0; /* Or top, left, etc., to position it */
+        left: 0;
+        width: 100%;
+        height: 2px; /* Set your desired height */
+        background-color: blue;
     }
 </style>
-*/}
+

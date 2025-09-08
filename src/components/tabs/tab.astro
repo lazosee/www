@@ -1,7 +1,47 @@
-<lion-tabs>
+---
+---
+
+<lion-tabs id="lion-tabs">
     <slot />
 </lion-tabs>
 
 <script>
     import '@lion/ui/define/lion-tabs.js';
+
+    window.onload = () => {
+        const { searchParams } = new URL(location.href);
+        const category = searchParams.get('category');
+        const lionTabs = document.getElementById('lion-tabs');
+
+        // The 'tabs' property gives you an array of all tab buttons
+        // @ts-expect-error Tab Exists!
+        const tabButtons = lionTabs?.tabs;
+
+        let newIndex = 0; // Default to the first tab
+
+        tabButtons.forEach((tab: HTMLElement, i: number) => {
+            // Check if the tab's data-id matches the URL parameter
+            if (category && tab.dataset.id === category) {
+                newIndex = i;
+            } else if (category === null) {
+                newIndex = 0;
+            }
+        });
+
+        // Set the selected tab using the property
+        // @ts-expect-error selectedIndex exists
+        lionTabs.selectedIndex = newIndex;
+    };
 </script>
+
+<style>
+    #lion-tabs {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: min(120ch, 100%);
+        width: 100%;
+    }
+</style>
