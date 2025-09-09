@@ -49,26 +49,20 @@ const { post, category } = Astro.props;
     </article>
 ) : (
     <div class="no-post">
-        <h4 style="width: 100%;text-align: center;">
+        <p style="display:flex; width:100%; text-align:center; padding:1rem; text-wrap:balance;flex-wrap: wrap;">
             No posts found {category && (
-                <span>for category <em>{category}</em></span>
+                <span>&nbsp;for category <em>{category}</em></span>
             )}
-        </h4>
+        </p>
     </div>
 )}
 
 <style>
-    .no-post {
-        min-width: 60ch;
-        max-width: 120ch;
-        width: auto;
-        justify-items: center;
-        align-content: center;
-        aspect-ratio: 16/4;
-    }
     article, .no-post {
         margin: 0.4rem;
+        margin-bottom: 3rem;
         border-radius: 1rem;
+        max-width: min(120ch, 100%);
         background: 
 			linear-gradient(
 				transparent 10%,
@@ -89,6 +83,16 @@ const { post, category } = Astro.props;
 				transparent 10px
             ),
             #f8f8f8ef;
+    }
+    .no-post {
+        min-width: min(60ch, 100%);
+        max-width: min(120ch, 100%);
+        width: auto;
+        justify-self: flex-start;
+        justify-items: center;
+        align-content: center;
+        aspect-ratio: 16/4;
+        padding: 0.4rem;
     }
     article header {
         display: flex;
@@ -142,7 +146,8 @@ const { post, category } = Astro.props;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        /* border: 2px solid red; */
+        padding-top: 1rem;
+        border-top: 2px #efefef solid;
     }
     article .body div {
         flex: 0.6;
@@ -161,7 +166,21 @@ const { post, category } = Astro.props;
         max-width: 60ch;
     }
 
-    @media (max-width: /*640px*/768px) {
+    @media (max-width: 640px) {
+        article header > .sub-header {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 0 auto;
+            gap: 1rem;
+            
+            * {
+                width: auto;
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
         article .body {
             flex-direction: column;
             justify-content: center;

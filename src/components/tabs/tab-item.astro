@@ -46,5 +46,10 @@ const { category } = Astro.props;
         height: 2px; /* Set your desired height */
         background-color: blue;
     }
+    @media (max-width: 640px) {
+        [data-id] {
+            display: none;
+        }
+    }
 </style>
 

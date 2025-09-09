@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import { getCollection } from "astro:content";
-import { PostCard, Slot } from "../../components/main";
+import { PostCard, Separator, Slot } from "../../components/main";
 import { Tab, TabItem } from '../../components/tabs';
 import Base from "../../layouts/base.astro";
 
@@ -41,17 +41,21 @@ const posts = (await getCollection('post'))
 	</Slot>
 
     <section>
-        <div data-kind="mobile">
-            <div>
-                {categories.map(category => (
-                    <a href={`/?category=${category.id}`} hreflang="en-us">
-                        {category.title}
-                    </a>
-                ))} 
+        <div data-kind="tabs" class="tabs" style="position: relative; min-height: 100%">
+            <div class="mobile-sidebar">
+                <button class="sidebar-btn" role="menubar" aria-expanded="false" data-open="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-right-icon lucide-chevrons-right"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>
+                </button>
+                <div class="sidebar" role="menu">
+                    <h4>Categories</h4>
+                    <Separator />
+
+                    <a href="/posts/">All</a>
+                    {categories.map(category => (
+                        <a href={`/posts/?category=${category.id}`}>{category.title}</a>
+                    ))}
+                </div>
             </div>
-            <div class="body" data-posts={JSON.stringify(posts)}></div>
-        </div>
-        <div data-kind="tabs" class="tabs">
             <Tab>
                 <TabItem category={{ slug: '', title: 'All' }}>
                     {posts.length > 0 ? posts.map(post => <PostCard {post} />
@@ -79,27 +83,110 @@ const posts = (await getCollection('post'))
     </section>
 </Base>
 
-<style>
-    [data-kind="mobile"] {
-        display: contents;
-    }
-    [data-kind="tabs"] {
-        display: none;
-    }
+<script>
+    const sidebar_btn = document.querySelector('.sidebar-btn') as HTMLButtonElement;
+    const sidebar_menu = document.querySelector('.sidebar[role="menu"]') as HTMLDivElement;
 
+    // Add animated transition
+    sidebar_menu.style.transition = 'all 1s ease'
+
+    const chevronRight = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-right-icon lucide-chevrons-right"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>`
+    const chevronLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-left-icon lucide-chevrons-left"><path d="m11 17-5-5 5-5"/><path d="m18 17-5-5 5-5"/></svg>`;
+
+    // Set to chevron right by default (for opening sidebar)
+    sidebar_btn.innerHTML = chevronRight;
+
+    
+    sidebar_btn.dataset.open == "true" ? sidebar_btn.dataset.open = "false" : sidebar_btn.dataset.open = "true";
+    sidebar_btn.addEventListener('click', function (this) {
+
+        if (this.dataset.open == "true") {
+            sidebar_menu.style.left = '-100% !important';
+            sidebar_menu.style.opacity = '1';
+            this.dataset.open = "false"
+            this.setAttribute('aria-expanded', "false")
+        } else {
+            sidebar_menu.style.left = '0';
+            sidebar_menu.style.opacity = '0';
+            this.dataset.open = "true"
+            this.setAttribute('aria-expanded', "true")
+        };
+        // sidebar_menu.style.left = '0'
+        sidebar_btn.innerHTML = this.dataset.open == "true" ? chevronRight : chevronLeft;
+    })
+</script>
+
+<style>
     section {
+        position: relative;
         width: 100%;
-        padding-inline: 2rem;
+        /* border: 2px solid red; */
         justify-items: center;
-        align-content: center;
+        align-items: center;
+    }
+    .tabs {
+        width: auto;
+        height: 100%;
+        justify-items: center;
+    }
+    .mobile-sidebar {
+        position: fixed;
+        inset: 0;
+        left: 2rem;
+        height: 100svh;
+        background-color: transparent;
+        z-index: 9;
+        /* border: 2px solid red; */
+    }
+    .sidebar, .sidebar-btn {
+        position: sticky;
+        inset: 0;
+        top: 50%;
+        width: fit-content;
+        height: fit-content;
+        background-color: cyan;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(-50%);
+    }
+    .sidebar {
+        /*  DO NOT EDIT */
+        inset: 0;
+        top: 50%;
+        left: -100%;
+        opacity: 0;
+        transform: translateY(-30%);
+        /* MAY EDIT */
+        padding: 3rem;
+        display: block;
+        z-index: 11;
+
+        & > *:not(h4) {
+            display: block;
+            margin: 0;
+            padding: 0.6rem 0 0.6rem 0.6rem;
+            font-size: 1.15rem;
+        }
+
+        & > h4 {
+            margin: 0 0.1rem 0.4rem;
+        }
+        & > h4 + hr {
+            margin-bottom: 0.6rem;
+        }
+    }
+    .sidebar-btn {
+        z-index: 12;
+        transform: translateX(-50%);
+        padding: 0.4rem 0.6rem;
+        background-color: rgba(60, 255, 255, 0.643);
     }
 
     @media(min-width: 640px) {
-        [data-kind="mobile"] {
+        .mobile-sidebar {
             display: none;
-        }
-        [data-kind="tabs"] {
-            display: contents;
         }
     }
 </style>
