@@ -3,7 +3,8 @@ import type { GetStaticPaths } from "astro";
 export const prerender = true;
 
 import { getCollection } from "astro:content";
-import { Slot } from "../../components/main";
+import { PostCard, Slot } from "../../components/main";
+import { epochMilli } from "../../helpers";
 import Base from "../../layouts/base.astro";
 
 export const getStaticPaths = (async () => {
@@ -14,21 +15,100 @@ export const getStaticPaths = (async () => {
 	}));
 }) satisfies GetStaticPaths;
 
-const { category } = Astro.props;
+const { category } = Astro.params;
+const { category: categoryData } = Astro.props;
+
+const posts = (await getCollection('post'))
+	.map(
+		p => ({ ...p.data, slug: p.slug })
+	)
+	.filter(
+		p => p.category == category
+	)
+	.sort(
+		(a, b) => epochMilli(b.published_at) - epochMilli(a.published_at)
+	)
 ---
 
-<Base title="Lazaro Osee">
+<Base title={`${categoryData.title} Posts - Lazaro Osee`}>
 	<Slot slot="head">
 		<meta name="author" content="Lazaro Osee" />
 		<meta 
 			name="description" 
-			content="The 'Official' Personnal Website and Blog of Lazaro Osee, an Architecture Student and a 'self taught' Software Developer" 
+			content={categoryData.description} 
 		/>
 		<meta 
 			name="keywords" 
-			content="Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts" 
+			content={`${categoryData.title}, Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts`}
 		/>
 	</Slot>
-	<!-- TODO: Implement posts of a category -->
-	<pre>{JSON.stringify(category)}</pre>
+
+	<section>
+		<header>
+			<h1>{categoryData.title} Posts</h1>
+			<p class="subtitle">
+				{categoryData.description}
+			</p>
+		</header>
+		<div class="posts">
+			{posts.map(post => (
+				<PostCard {post} />
+			))}
+			{posts.length == 0 && (
+				<PostCard {category} />
+			)}
+		</div>
+		{/* <pre>{JSON.stringify({ categoryData, posts }, null, 2)}</pre> */} 
+	</section>
 </Base>
+
+<style>
+	section {
+		max-width: min(80ch, 100%);
+		min-height: 100svh;
+	}
+	header {
+		padding-inline: 1.2rem;
+		padding-bottom: 1.2rem;
+		font-weight: bold;
+		text-align: center;
+		background: 
+			fixed repeating-linear-gradient(
+				to bottom,
+				#cfcfcf,
+				#cfcfcf 1px,
+				transparent 1px,
+				transparent 40px
+			),
+			fixed repeating-linear-gradient(
+				to right,
+				#cfcfcf,
+				#cfcfcf 1px,
+				transparent 1px,
+				transparent 40px
+			),
+			fixed repeating-linear-gradient(
+				to bottom,
+				#efefef,
+				#efefef 1px,
+				transparent 1px,
+				transparent 4px
+			), 
+			fixed repeating-linear-gradient(
+				to right,
+				#efefef,
+				#efefef 1px,
+				transparent 1px,
+				transparent 4px
+			);
+	}
+	header p {
+		background: #fff8;
+		padding: 0.2rem 0.4rem;
+	}
+	.posts {
+		justify-items: center;
+		align-content: center;
+		padding: 1rem;
+	}
+</style>

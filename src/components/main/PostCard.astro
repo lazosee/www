@@ -42,7 +42,7 @@ const { post, category } = Astro.props;
                     loading="lazy"
                 />
             </div>
-            <p class="subtitle">
+            <p class="" style="line-height: 1.5rem; font-size: 1.15rem;">
                 {post.summary}
             </p>
         </div>
@@ -147,6 +147,7 @@ const { post, category } = Astro.props;
         justify-content: space-between;
         align-items: center;
         padding-top: 1rem;
+        font-family: 'Atkinson Hyperlegible', 'Roboto', Verdana, Geneva, Tahoma, sans-serif;
         border-top: 2px #efefef solid;
     }
     article .body div {

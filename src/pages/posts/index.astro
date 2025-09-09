@@ -46,7 +46,7 @@ const posts = (await getCollection('post'))
                 <button class="sidebar-btn" role="menubar" aria-expanded="false" data-open="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevrons-right-icon lucide-chevrons-right"><path d="m6 17 5-5-5-5"/><path d="m13 17 5-5-5-5"/></svg>
                 </button>
-                <div class="sidebar" role="menu">
+                <div class="sidebar hidden" role="menu">
                     <h4>Categories</h4>
                     <Separator />
 
@@ -99,15 +99,18 @@ const posts = (await getCollection('post'))
     
     sidebar_btn.dataset.open == "true" ? sidebar_btn.dataset.open = "false" : sidebar_btn.dataset.open = "true";
     sidebar_btn.addEventListener('click', function (this) {
+        sidebar_menu.classList.toggle("hidden")
 
         if (this.dataset.open == "true") {
-            sidebar_menu.style.left = '-100% !important';
+            sidebar_menu.style.left = '-100%';
             sidebar_menu.style.opacity = '1';
+            // sidebar_menu.style.display = 'flex'
             this.dataset.open = "false"
             this.setAttribute('aria-expanded', "false")
         } else {
             sidebar_menu.style.left = '0';
-            sidebar_menu.style.opacity = '0';
+            sidebar_menu.style.opacity = '1';
+            // sidebar_menu.style.display = 'none'
             this.dataset.open = "true"
             this.setAttribute('aria-expanded', "true")
         };
@@ -131,10 +134,10 @@ const posts = (await getCollection('post'))
     }
     .mobile-sidebar {
         position: fixed;
-        inset: 0;
+        width: 0;
         left: 2rem;
         height: 100svh;
-        background-color: transparent;
+        background-color: fuchsia;
         z-index: 9;
         /* border: 2px solid red; */
     }
@@ -149,6 +152,7 @@ const posts = (await getCollection('post'))
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        transition: all 1s ease;
         transform: translateY(-50%);
     }
     .sidebar {
@@ -182,6 +186,9 @@ const posts = (await getCollection('post'))
         transform: translateX(-50%);
         padding: 0.4rem 0.6rem;
         background-color: rgba(60, 255, 255, 0.643);
+    }
+    .hidden {
+        display: none !important;
     }
 
     @media(min-width: 640px) {
