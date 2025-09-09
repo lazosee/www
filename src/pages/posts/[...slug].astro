@@ -4,6 +4,9 @@ import { getCollection, getEntry } from "astro:content";
 import { Slot } from "../../components/main";
 import Base from "../../layouts/base.astro";
 import Post from "../../layouts/post.astro";
+
+export const prerender = true;
+
 export const getStaticPaths = (async () => {
     const posts = (await getCollection('post'))
     return posts.map(post => {

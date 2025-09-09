@@ -6,6 +6,7 @@ const category = defineCollection({
 		title: z.string(),
 		slug: z.string(),
 		description: z.string(),
+		icon: z.string(),
 	}),
 })
 

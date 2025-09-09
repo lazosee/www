@@ -7,6 +7,7 @@
 @import url('./variables.css');
 @import url('./typography.css');
 @import url('./position.css');
+@import url('./backgrounds.css');
 
 @font-face {
 	font-family: 'Syne Variable';
@@ -84,7 +85,7 @@ ion-icon {
 	transition: all ease 0.3s;
 }
 ion-icon:hover {
-	scale: 1.2;
+	/* scale: 1.2; */
 }
 
 article.post {

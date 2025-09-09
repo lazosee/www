@@ -1,0 +1,10 @@
+.square-diag {
+	background:
+		/* linear-gradient(transparent 10%, #fff), */
+		/*fixed */
+		repeating-linear-gradient(-45deg, #efefef, #efefefef 1px, transparent 1px, transparent 10px),
+		/*fixed */
+			repeating-linear-gradient(45deg, #efefef, #efefefef 1px, transparent 1px, transparent 10px)
+			/*,
+		#f8f8f8ef*/ !important;
+}
