@@ -5,7 +5,7 @@ const category = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		slug: z.string(),
-		description: z.string()
+		description: z.string(),
 	}),
 })
 
@@ -20,6 +20,7 @@ const post = defineCollection({
 			category: z.string(reference('category')),
 			tags: z.array(z.string()),
 			draft: z.boolean(),
+			related: z.array(z.string(reference('post'))).optional(),
 		}),
 })
 

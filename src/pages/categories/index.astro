@@ -1,7 +1,37 @@
 ---
 export const prerender = true;
+import { getCollection } from "astro:content";
+import { Slot } from "../../components/main";
+import Base from "../../layouts/base.astro";
 
-return Astro.redirect('/posts/', 307)
+const categories = (await getCollection('category')).map(c => ({ ...c.data, id: c.id }))
 ---
 
-This page redirects to "/posts/"
+<Base title="Posts Categories - Lazaro Osee">
+    <Slot slot="head">
+		<meta name="author" content="Lazaro Osee" />
+        <meta name="description" content="Explore the vast (or soon to be) collection of blog posts by Lazaro Osee aka me sorted by their respective categories." />
+		<meta 
+			name="keywords" 
+			content={`${categories.map(c => c.title).join(', ')}, Blog, Posts, Categories, Lazaro, Osee, Architect, Web, Software, Developer, Blog, Posts`}
+		/>
+    </Slot>
+    <section style="max-width: min(80ch, 100%);">
+        <h1 style="text-align: center;">Posts Categories</h1>
+        <p class="subtitle" style="margin-bottom: 4rem; line-height: 1.5; font-family: 'Atkinson Hyperlegible','Roboto'; padding-inline: 1rem;">
+            Explore the vast (or soon to be) collection of blog posts by <em>Lazaro Osee</em> <small>aka</small> <strong>me</strong> sorted by their respective categories.
+        </p>
+        <div class="categories" style="margin: 1rem;">
+            {categories.map(category => (
+                <article style="margin-bottom: 4rem;">
+                    <h3 style="font-size: 1.8rem;">
+                        <a href={`/categories/${category.id}`} hreflang="en-us">
+                            {category.title}
+                        </a>
+                    </h3>
+                    <p style="font-family: 'Atkinson Hyperlegible','Roboto',Verdana; font-size: 1.25rem;">{category.description}</p>
+                </article>
+            ))}
+        </div>
+    </section>
+</Base>

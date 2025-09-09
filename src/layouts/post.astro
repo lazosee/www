@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { PostCard, Separator } from '../components/main';
+import { formatDate } from '../helpers';
+
+type Props = {
+    post: CollectionEntry<'post'>;
+    category?: CollectionEntry<'category'>;
+}
+const { post, category } = Astro.props;
+
+const relatedPosts: (Props['post']['data'] & { slug: string })[] = []
+if (post.data.related) {
+    for (const r in post.data.related) {
+        const rPost = await getEntry('post', post.data.related[r]);
+        console.log("R", r, rPost)
+        if (rPost) {
+            relatedPosts.push({ ...rPost.data, slug: rPost.slug})
+        }
+    }
+}
+console.log(relatedPosts)
+---
+
+<>
+<section>
+    <article>
+        <header>
+            <span>
+                <a href={`/categories/${category?.id}`} hreflang="en-us">
+                    {category?.data.title}
+                </a>
+            </span>
+            <h1>{post.data.title}</h1>
+            <p role="contentinfo" class="subtitle">{post.data.summary}</p>
+            <div>
+                <time datetime={post.data.published_at.toISOString()}>
+                    {formatDate(post.data.published_at)}
+                </time>
+                <span>•</span>
+                {post.data.tags.map(tag => (
+                    <small>{tag}</small>
+                ))}
+            </div>
+            <Image src={post.data.image} alt={post.data.title} />
+        </header>
+        
+        <Separator color='#efefef' />
+        <slot />
+    </article>
+</section>
+
+{relatedPosts.length > 0 && (
+    <Separator color='#efefef' />
+    <section class="related-posts">
+        <h2>Related Posts</h2>
+        {relatedPosts.map(p => (
+            <PostCard post={p} />
+        ))}
+    </section>
+)}
+</>

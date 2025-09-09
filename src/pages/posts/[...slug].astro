@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, getEntry } from "astro:content";
+import { Slot } from "../../components/main";
+import Base from "../../layouts/base.astro";
+import Post from "../../layouts/post.astro";
+export const getStaticPaths = (async () => {
+    const posts = (await getCollection('post'))
+    return posts.map(post => {
+        return ({
+            params: { slug: post.slug ?? post.id },
+            props: { post: { ...post, category: {} } }
+        })
+    });
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params;
+const post = await getEntry('post', slug);
+
+if (!post) return new Response(null, { status: 404 })
+
+const category = await getEntry('category', post.data.category)
+
+const { Content } = await post.render()
+---
+
+<Base title={`${post.data.title} - Lazaro Osee`}>
+    <Slot slot="head">
+        <meta name="author" content="Lazaro Osee" />
+        <meta name="description" content={post.data.summary} />
+        <meta 
+            name="keywords" 
+            content={`${category?.data.title}, ${post.data.tags.map(t => t).join(', ')}`} 
+        />
+        <meta name="og:type" content="article" />
+    </Slot>
+
+    <Slot slot="default">
+        <Post {post} {category}>
+            <Content />
+        </Post>
+    </Slot>
+</Base>
