@@ -1,0 +1,18 @@
+---
+type Props ={
+    title: string;
+}
+const { title } = Astro.props;
+---
+
+<cite>{title}</cite>
+
+<style>
+    cite {
+        padding-left: 1rem;
+        font-family: 'Syne Variable', 'Syne', 'Jetbrains Mono', 'Roboto Mono', Arial, Helvetica, sans-serif;
+    }
+    cite::before {
+        content: '• '
+    }
+</style>

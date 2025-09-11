@@ -6,26 +6,28 @@ const csvRows = (await Astro.slots.render('default'))
 const csvColumns = csvRows.map(r => r.split(','))
 ---
 
-<table>
-    <thead>
-        <tr>
-            {csvColumns.slice(0,1).map(h => (
-                h.map(hi => (
-                    <th>{hi}</th>
-                ))
-            ))}
-        </tr>
-    </thead>
-    <tbody>
-        {csvColumns.slice(1).map((b, i) => (
+<div class="table-container">
+    <table>
+        <thead>
             <tr>
-                {b.map(bi => (
-                    <td>{bi}</td>
+                {csvColumns.slice(0,1).map(h => (
+                    h.map(hi => (
+                        <th>{hi}</th>
+                    ))
                 ))}
             </tr>
-        ))}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {csvColumns.slice(1).map((b, i) => (
+                <tr>
+                    {b.map(bi => (
+                        <td>{bi}</td>
+                    ))}
+                </tr>
+            ))}
+        </tbody>
+    </table>
+</div>
 
 <style>
     .table-container {

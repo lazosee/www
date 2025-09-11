@@ -22,6 +22,15 @@ export default defineMarkdocConfig({
 			attributes: {},
 			children: ['inline'],
 		},
+		cite: {
+			render: component('./src/components/Cite.astro'),
+			attributes: {
+				title: {
+					type: 'String',
+					required: true,
+				},
+			},
+		},
 		'package-install': {
 			render: component('./src/components/PackageInstall.astro'),
 			attributes: {
@@ -95,6 +104,10 @@ export default defineMarkdocConfig({
 					type: 'String',
 				},
 			},
+		},
+		blockquote: {
+			render: component('./src/components/Blockquote.astro'),
+			attributes: nodes.blockquote.attributes,
 		},
 	},
 })

@@ -7,7 +7,7 @@ updated_at: 2025-09-05
 category: personal
 tags: ['personal', 'test', 'markdoc', 'tags']
 draft: true
-related: ['another-post']
+related: ['another-post', 'markdoc-test']
 ---
 
 # Let's Wrap Up
@@ -20,12 +20,25 @@ related: ['another-post']
 
 [My Website](https://lazaroosee.xyz)
 
+> All is well that ends well
+> Or whatever the saying goes
+> {% cite title="A proverb" /%}
+
 {% package-install
     managers={
         "npm": "npm install @markdoc/markdoc",
         "yarn": "yarn add @markdoc/markdoc",
         "bun": "bun add @markdoc/markdoc",
         "pnpm": "pnpm add @markdoc/markdoc",
+    }
+/%}
+
+{% package-install
+    managers={
+        "npm": "npm upgrade",
+        "yarn": "yarn upgrade",
+        "bun": "bun upgrade",
+        "pnpm": "pnpm upgrade",
     }
 /%}
 

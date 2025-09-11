@@ -1,6 +1,6 @@
 export async function copy_to_clipboard(button: HTMLElement | Element, content: string) {
 	try {
-		await navigator.clipboard.writeText(content)
+		await navigator.clipboard.writeText?.(content)
 		button.textContent = 'Copied!'
 		setTimeout(() => {
 			button.textContent = 'Copy'

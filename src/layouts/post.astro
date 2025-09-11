@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
 import { PostCard, Separator } from '../components/main';
-import { formatDate } from '../helpers';
+import { formatDate, sharePost } from '../helpers';
 
 type Props = {
     post: CollectionEntry<'post'>;
@@ -20,6 +20,11 @@ if (post.data.related) {
         }
     }
 }
+
+const url = (path: string ) => (new URL(path, (Astro.site as URL))).href
+// const { src } = await getImage({ src: post.data.image, format: 'avif', quality: 'max' })
+
+const shareLinks = sharePost(url(`/posts/${post.slug}`));
 ---
 
 <div class="container">
@@ -43,24 +48,72 @@ if (post.data.related) {
                 <time datetime={post.data.published_at.toISOString()}>
                     {formatDate(post.data.published_at)}
                 </time>
-                <span>•</span>
+                <span class="dot">•</span>
                 <div>
                     {post.data.tags.map(tag => (
                         <small data-tag="true">{tag}</small>
                     ))}
                 </div>
             </div>
-            <p role="contentinfo" class="subtitle">{post.data.summary}</p>
+            <div class="share">
+                <div>Share Post</div>
+                <div>
+                    {shareLinks.map(social => (
+                        <a href={social.link} hreflang="en-us" target="_blank" aria-label={social.platform}>
+                            {social.platform == 'bluesky' && (
+                                <i class="fa-brands fa-bluesky"></i>
+                            )}
+                            {social.platform == 'facebook' && (
+                                <i class="fa-brands fa-facebook-f"></i>
+                            )}
+                            {social.platform == 'linkedin' && (
+                                <i class="fa-brands fa-linkedin"></i>
+                            )}
+                            {social.platform == 'telegram' && (
+                                <i class="fa-brands fa-telegram"></i>
+                            )}
+                            {social.platform == 'twitter' && (
+                                <i class="fa-brands fa-x-twitter"></i>
+                            )}
+                        </a>
+                    ))}
+                </div>
+            </div>
             <Image class="square-diag" src={post.data.image} alt={post.data.title} loading="eager" format='avif' />
+            <p role="contentinfo" class="subtitle">{post.data.summary}</p>
         </header>
         
         <Separator color='#efefef' />
         <slot />
     </article>
+    <Separator color='#efefef' />
+    <div class="share">
+        <div>Share Post</div>
+        <div>
+            {shareLinks.map(social => (
+                <a href={social.link} hreflang="en-us" target="_blank" aria-label={social.platform}>
+                    {social.platform == 'bluesky' && (
+                        <i class="fa-brands fa-bluesky"></i>
+                    )}
+                    {social.platform == 'facebook' && (
+                        <i class="fa-brands fa-facebook-f"></i>
+                    )}
+                    {social.platform == 'linkedin' && (
+                        <i class="fa-brands fa-linkedin"></i>
+                    )}
+                    {social.platform == 'telegram' && (
+                        <i class="fa-brands fa-telegram"></i>
+                    )}
+                    {social.platform == 'twitter' && (
+                        <i class="fa-brands fa-x-twitter"></i>
+                    )}
+                </a>
+            ))}
+        </div>
+    </div>
 </section>
 
 {relatedPosts.length > 0 && (
-    <Separator color='#efefef' />
     <section class="related-posts">
         <h2>Related Posts</h2>
         {relatedPosts.map(p => (
@@ -77,7 +130,6 @@ if (post.data.related) {
         justify-items: center;
         align-content: center;
         overflow-x: hidden;
-        border: 2px solid red;
     }
     section {
         display: flex;
@@ -89,7 +141,12 @@ if (post.data.related) {
     }
     [data-article="section"] {}
     .related-posts {}
-    article {}
+    article {
+        /* justify-items: flex-start;
+        align-content: center; */
+        width: 100%;
+        margin-inline: 0.2rem;
+    }
     article header {
         justify-items: center;
         place-items: center;
@@ -144,8 +201,16 @@ if (post.data.related) {
     header .meta {
         width: min(60ch, 100%);
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    header .meta > * {
+        margin-bottom: 0.4rem;
+        font-size: 1.05rem;
+    }
+    header .meta .dot {
+        display: none;
     }
     header .meta time {
         font-family: 'Syne Variable', 'Syne', 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -176,10 +241,90 @@ if (post.data.related) {
         /* position: absolute; */
         left: 0;
     }
+    header img {
+        mask: linear-gradient(#fff, transparent 90%);
+    }
+    header p.subtitle {
+        margin-block-start: -5rem;
+    }
+    .share {
+        display: flex;
+        width: 100%;
+        margin-block: 1.6rem;
+        flex-direction: column;
+        box-sizing: border-box;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    header .share {
+        width: 80%;
+    }
+    .share div:first-of-type {
+        font-size: 1.4rem;
+        font-family: 'Atkinson Hyperlegible';
+    }
+    .share div:last-of-type {
+        & {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: baseline;
+        }
+        a {
+            & {
+                display: flex;
+                margin: 0.2rem 0.4rem;
+                background-color: transparent;
+                text-decoration: none;
+            }
+
+            .fa-brands {
+                & {
+                    font-size: 1.6rem;
+                    transition: all 0.3s ease;
+                }
+
+                &:hover {
+                    scale: 1.2;
+                }
+            }
+            .fa-bluesky {
+                color: #1877f2;
+            }
+            .fa-facebook-f {
+                color: #3b5998;
+            }
+            .fa-linkedin {
+                color: #0a66c2;
+            }
+            .fa-telegram {
+                color:  #0088cc;
+                font-size: 1.6rem;
+            }
+            .fa-x-twitter {
+                color: #000000;
+            }
+        }
+    }
+
+    section.related-posts {
+        justify-items: center;
+        align-content: center;
+        text-align: center;
+        background: #cfcfcfcf;
+    }
 
     @media (min-width: 640px) {
         header img {
             aspect-ratio: 16/9;
+        }
+        header .meta {
+            flex-direction: row;
+        }
+        header .meta .dot {
+            display: flex;
+        }
+        .share {
+            flex-direction: row;
         }
     }
 </style>

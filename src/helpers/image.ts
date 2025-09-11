@@ -1,3 +1,5 @@
+import { getImage } from 'astro:assets'
+
 export function getImageExtension(mimeType: string): string | null {
 	switch (mimeType) {
 		case 'image/jpeg':
@@ -17,4 +19,16 @@ export function getImageExtension(mimeType: string): string | null {
 		default:
 			return mimeType.split('/').pop()?.trim().toLocaleLowerCase() || 'png'
 	}
+}
+
+type CollectionImage = {
+	src: string
+	width: number
+	height: number
+	format: 'png' | 'jpg' | 'jpeg' | 'tiff' | 'webp' | 'gif' | 'svg' | 'avif'
+}
+
+export const getImg = async (image: CollectionImage) => {
+	const { src } = await getImage({ src: image, format: 'avif', quality: 'max' })
+	return src
 }

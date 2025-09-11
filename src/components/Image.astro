@@ -23,10 +23,10 @@ const { src, alt, width, height, ...rest } = Astro.props as HTMLAttributes<'img'
 <style>
     * {
         box-sizing: border-box;
-        max-width: 100%;
     }
     figure {
         --gray: #888;
+        --margin: 0.4rem;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -36,9 +36,11 @@ const { src, alt, width, height, ...rest } = Astro.props as HTMLAttributes<'img'
         border-radius: 0.5rem;
         height: auto;
         padding: 0;
-        margin: 0.4rem;
+        margin: var(--margin);
         width: 100%;
+        max-width: calc(100% - (var(--margin) * 2));
         border-collapse: collapse;
+        background-color: #efefef;
     }
     hr {
         border-bottom: 1px solid var(--gray);

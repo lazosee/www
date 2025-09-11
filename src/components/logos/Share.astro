@@ -1,0 +1,24 @@
+---
+import type { SharePlatform } from '../../helpers';
+
+type Props = {
+    platform: SharePlatform
+}
+const { platform } = Astro.props;
+---
+
+{platform == 'bluesky' && (
+    <i class="fa-brands fa-bluesky"></i>
+)}
+{platform == 'facebook' && (
+    <i class="fa-brands fa-facebook-f"></i>
+)}
+{platform == 'linkedin' && (
+    <i class="fa-brands fa-linkedin"></i>
+)}
+{platform == 'telegram' && (
+    <i class="fa-brands fa-telegram"></i>
+)}
+{platform == 'twitter' && (
+    <i class="fa-brands fa-x-twitter"></i>
+)}

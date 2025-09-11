@@ -1,0 +1,23 @@
+---
+
+---
+
+<div class="quote">
+    <slot />
+</div>
+
+<style>
+    .quote {
+        justify-items: flex-start;
+        align-content: center;
+        margin: 0.4rem 1rem;
+        padding: 0.4rem;
+        padding-left: clamp(2rem, calc(8% + 1rem), 6rem);
+        border: none;
+        border-left: blue 4px solid;
+        background: rgba(0, 0, 255, 0.169);
+        font-family: 'Atkinson Hyperlegible', Arial, Helvetica, sans-serif;
+    }
+    .quote blockquote {
+    }
+</style>

@@ -1,0 +1,6 @@
+export { default as Bluesky } from './bluesky.astro'
+export { default as Facebook } from './facebook.astro'
+export { default as Linkedin } from './linkedin.astro'
+export { default as ShareLogo } from './Share.astro'
+export { default as Telegram } from './telegram.astro'
+export { default as Twitter } from './twitter.astro'

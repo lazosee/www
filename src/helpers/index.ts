@@ -1,5 +1,7 @@
 export { copy_to_clipboard } from './copy'
 export { compareDates, epochMilli, formatDate } from './date'
 export { getImageExtension } from './image'
+export { sharePost, SharePost, type SharePlatform } from './share'
 export { slugify } from './slug'
 export { sortPostsByCategory } from './sort'
+export { encodeString } from './uri'

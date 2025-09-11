@@ -7,6 +7,7 @@ import vercel from '@astrojs/vercel'
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://www-flame-seven.vercel.app',
 	output: 'server',
 	integrations: [markdoc()],
 	adapter: vercel(),

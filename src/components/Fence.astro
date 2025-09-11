@@ -21,11 +21,11 @@ function langIcon(lang: string) {
     }
 }
 function pathWithIcons(path: string) {
-    const p = path.split('/').map(pp => pp.trim() !== '' ? pp : null).filter(ppp => ppp !== null)
+    let p = path.split('/').map(pp => pp.trim() !== '' ? pp : null).filter(ppp => ppp !== null)
     const final = p.map((pt, i) => {
         return (i !== p.length - 1) 
-            ? `<ion-icon style="color:cyan;" size="small" name="folder-outline"></ion-icon>\n${pt}\n\/` 
-            : `<ion-icon style="color:yellow;" size="small" name="document-outline"></ion-icon>\n${pt}`
+            ? `<ion-icon style="color:cyan;" class="folder-file" size="small" name="folder-outline"></ion-icon>\n${pt}\n\/` 
+            : `<ion-icon style="color:yellow;" class="folder-file" size="small" name="document-outline"></ion-icon>\n${pt}`
     })
     return final;
 }
@@ -33,7 +33,7 @@ function pathWithIcons(path: string) {
 
 <figure>
     <figcaption>
-        <span set:html={pathWithIcons(path ?? '')}>{path ?? ''}</span>
+        <span class="pathname" set:html={pathWithIcons(path ?? '')}>{path ?? ''}</span>
         <span class="lang">
             <i 
                 class={`devicon-${langIcon(language)}-plain colored`} 
@@ -44,8 +44,7 @@ function pathWithIcons(path: string) {
     </figcaption>
     <div class="body">
         <div class="copy-container">
-            <div data-content={content} hidden></div>
-            <button id="copy">Copy</button>
+            <button class="copy copy-button" data-content={content}>Copy</button>
         </div>
         <div class="code-container font-mono" set:html={highlighted} />
     </div>    
@@ -53,15 +52,27 @@ function pathWithIcons(path: string) {
 
 <script>
 import { copy_to_clipboard } from "../helpers";
+    
+    const copyButtons = document.getElementsByClassName('copy-button');
+    const ionIcons = document.querySelectorAll('ion-icon.folder-file')
 
-    const copyButtons = document.querySelectorAll('button#copy');
-    const contents = document.querySelectorAll('div[data-content]');
-    (copyButtons).forEach((copyButton, i) => { 
-        const content = contents[i]?.getAttribute('data-content') ?? '';   
-        copyButton.addEventListener('click', async function() { 
-            copy_to_clipboard(copyButton, content)
-        })
-    });
+    for (const i of Array.from({ length: copyButtons.length }, (_, i) => i)) {
+        const btn = copyButtons.item(i) as HTMLButtonElement;
+        console.log(copy_to_clipboard)
+
+        btn?.addEventListener(
+            'click',
+            function() {
+                copy_to_clipboard(btn, btn.dataset.content ?? '')
+            }
+        )
+    }
+
+    for (const i of Array.from({ length: ionIcons.length }, (_, i) => i)) {
+        if (window.matchMedia('(max-width: 540px)').matches) {
+            ionIcons.item(i)?.parentElement?.removeChild(ionIcons.item(i))
+        }
+    }
 </script>
 
 <style>
@@ -120,6 +131,13 @@ import { copy_to_clipboard } from "../helpers";
         padding: 0 !important;
         overflow: hidden;
     }
+    .pathname {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+        gap: 0;
+        padding: 0;
+    }
     .copy-container {
         position: absolute;
         display: flex;
@@ -128,7 +146,7 @@ import { copy_to_clipboard } from "../helpers";
         width: 100%;
         height: auto;
     }
-    button#copy {
+    button.copy {
         opacity: 0;
         align-self: flex-end;
         margin: 0.25rem;
@@ -143,16 +161,26 @@ import { copy_to_clipboard } from "../helpers";
         cursor: pointer;
         transition: all 0.3s ease;
         border: 1px solid #ccc;
+        z-index: 4;
     }
-    button#copy:hover {
+    button.copy:hover {
         background-color: #555;
     }
-    button#copy:active {
+    button.copy:active {
         background-color: #444;
         scale: 1.15;
     }
-    div:hover button#copy {
+    div:hover button.copy {
         /* display: block; */
         opacity: 1;
+    }
+    .folder-file {
+        display: none !important;
+    }
+
+    @media (min-width: 640px) {
+        .folder-file {
+            display: flex !important;
+        }
     }
 </style>

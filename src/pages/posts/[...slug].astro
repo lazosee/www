@@ -36,6 +36,8 @@ const { Content } = await post.render()
             content={`${category?.data.title}, ${post.data.tags.map(t => t).join(', ')}`} 
         />
         <meta name="og:type" content="article" />
+        <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" as="link" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     </Slot>
 
     <Slot slot="default">
