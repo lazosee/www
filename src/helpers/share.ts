@@ -16,6 +16,9 @@ export abstract class Share {
 		bcc?: string,
 		body?: string
 	): string
+	/*
+	 * whatsapp, reddit, email
+	 */
 }
 
 export class SharePost extends Share {

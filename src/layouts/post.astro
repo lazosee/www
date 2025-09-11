@@ -1,4 +1,5 @@
 ---
+import type { MarkdownHeading } from 'astro';
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getEntry } from 'astro:content';
@@ -7,9 +8,10 @@ import { formatDate, sharePost } from '../helpers';
 
 type Props = {
     post: CollectionEntry<'post'>;
+    headings: MarkdownHeading[];
     category?: CollectionEntry<'category'>;
 }
-const { post, category } = Astro.props;
+const { post, category, headings } = Astro.props;
 
 const relatedPosts: (Props['post']['data'] & { slug: string })[] = []
 if (post.data.related) {
@@ -111,20 +113,53 @@ const shareLinks = sharePost(url(`/posts/${post.slug}`));
             ))}
         </div>
     </div>
+    
+    {relatedPosts.length > 0 && (
+        <div class="related-posts">
+            <h2>Related Posts</h2>
+            {relatedPosts.map(p => (
+                <PostCard post={p} />
+            ))}
+        </div>
+    )}
 </section>
 
-{relatedPosts.length > 0 && (
-    <section class="related-posts">
-        <h2>Related Posts</h2>
-        {relatedPosts.map(p => (
-            <PostCard post={p} />
-        ))}
-    </section>
-)}
+
+<button id="toc-open-btn" class="toc-btns" data-direction="left">
+    <span class="material-symbols-outlined">
+        keyboard_double_arrow_left
+    </span>
+</button>
+<aside id="toc" inert>
+    <div class="headings">
+        <h2 style="font-family: 'Atkinson Hyperlegible';">
+            Table of Contents
+        </h2>
+        <hr />
+        <ol>
+            {headings.map((heading) => (
+                <li>
+                    <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+            ))}
+        </ol>
+    </div>
+</aside>
 </div>
+
+<script>
+    const openTocButton = document.getElementById('toc-open-btn') as HTMLButtonElement;
+    const aside = document.getElementById('toc') as HTMLElement;
+
+    openTocButton.addEventListener('click', function(this) {
+        aside.classList.toggle('show')
+        this.querySelector('span')!.textContent = aside.classList.contains('show') ? 'keyboard_double_arrow_right' : 'keyboard_double_arrow_left'
+    })
+</script>
 
 <style>
     .container {
+        position: relative;
         max-width: min(120ch, 100%);
         width: 100%;
         justify-items: center;
@@ -163,6 +198,7 @@ const shareLinks = sharePost(url(`/posts/${post.slug}`));
         border: 2px solid #efefef;
         border-radius: 2rem;
         background-position: fixed;
+        mask: linear-gradient(#fff, #fff 40%, transparent 90%);
     }
     header a.category {
         --ionicon-stroke-width: 48px;
@@ -241,9 +277,6 @@ const shareLinks = sharePost(url(`/posts/${post.slug}`));
         /* position: absolute; */
         left: 0;
     }
-    header img {
-        mask: linear-gradient(#fff, transparent 90%);
-    }
     header p.subtitle {
         margin-block-start: -5rem;
     }
@@ -313,6 +346,96 @@ const shareLinks = sharePost(url(`/posts/${post.slug}`));
         background: #cfcfcfcf;
     }
 
+    #toc-open-btn {
+        position: fixed;
+        top: 50%;
+        right: -0.2rem;
+        transform: translateY(-50%);
+        z-index: 25;
+    }
+    .toc-btns {
+        & {
+            display: block;
+            justify-self: center;
+            justify-items: center;
+            align-content: center;
+            align-self: center;
+            width: fit-content;
+            aspect-ratio: 1;
+            z-index: 23;
+            font-size: 1.8rem;
+            color: #3f3f3f;
+            border: 2px solid #3f3f3f;
+            border-right: none;
+            background-color: #efefef6f;
+            border-radius: 0.2rem;
+        }
+        
+        span {
+            width: 100%;
+            height: 100%;
+            padding: 0.4rem;
+            font-size: 1.8rem;
+            justify-self: center;
+            justify-items: center;
+            align-content: center;
+            align-self: center;
+        }
+    }
+    aside {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 1rem;
+        padding: 1rem;
+        background: #efefef;
+        justify-items: center;
+        align-content: center;
+        max-width: min(30ch, 70%);
+        border: 2px solid #afafaf;
+        border-radius: 0.4rem;
+        z-index: 13;
+        overflow: auto;
+        transition: all 0.8s ease;
+    }
+    aside {
+        h2 {
+            font-size: 1.8rem;
+            font-family: 'Atkinson Hyperlegible' !important;
+            text-align: center;
+        }
+        button#toc-close-btn {
+            justify-self: flex-start;
+        }
+        ul, ol {
+            & {}
+            li {
+                & {
+                    padding: 0.2rem 0.4rem;
+                    margin-block: 0.4rem;
+                    list-style: lower-roman;
+                }
+                &::marker {
+                    font-size: 0.8rem;
+                    color: rgb(2, 61, 61);
+                }
+                a {
+                    text-underline-offset: 0.2rem;
+                    font-family: 'Atkinson Hyperlegible';
+                }
+            }
+        }
+    }
+
+    @media (max-width: 640px) {
+        aside {
+            right: calc(min(30ch, 70%) * -1.2);
+        }
+        aside.show {
+            right: 0;
+        }
+    }
     @media (min-width: 640px) {
         header img {
             aspect-ratio: 16/9;
@@ -325,6 +448,9 @@ const shareLinks = sharePost(url(`/posts/${post.slug}`));
         }
         .share {
             flex-direction: row;
+        }
+        .toc-btns {
+            display: none;
         }
     }
 </style>

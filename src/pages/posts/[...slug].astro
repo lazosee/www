@@ -24,7 +24,7 @@ if (!post) return new Response(null, { status: 404 })
 
 const category = await getEntry('category', post.data.category)
 
-const { Content } = await post.render()
+const { Content, headings } = await post.render()
 ---
 
 <Base title={`${post.data.title} - Lazaro Osee`}>
@@ -36,13 +36,41 @@ const { Content } = await post.render()
             content={`${category?.data.title}, ${post.data.tags.map(t => t).join(', ')}`} 
         />
         <meta name="og:type" content="article" />
+        <meta name="og:title" content={post.data.title} />
         <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" as="link" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <script src="https://giscus.app/client.js"
+            data-repo="lazosee/www"
+            data-repo-id="R_kgDOPryFHQ"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOPryFHc4CvUqk"
+            data-mapping="og:title"
+            data-strict="1"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="preferred_color_scheme"
+            data-lang="en"
+            data-loading="lazy"
+            crossorigin="anonymous"
+            async>
+        </script>
     </Slot>
 
     <Slot slot="default">
-        <Post {post} {category}>
+        <Post {post} {category} {headings}>
             <Content />
         </Post>
     </Slot>
 </Base>
+
+<style>
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+    }
+</style>

@@ -109,5 +109,13 @@ export default defineMarkdocConfig({
 			render: component('./src/components/Blockquote.astro'),
 			attributes: nodes.blockquote.attributes,
 		},
+		code: {
+			render: component('./src/components/InlineCode.astro'),
+			attributes: {
+				content: {
+					type: 'String',
+				},
+			},
+		},
 	},
 })

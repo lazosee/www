@@ -1,0 +1,19 @@
+---
+type Props = {
+    content?: string;
+}
+const { content } = Astro.props;
+---
+
+<span class="code">{content}</span>
+
+<style>
+    span {
+        font-family: 'Jetbrains Mono', 'Roboto Mono', 'Courier New', Courier, monospace;
+        padding: 0.1rem 0.2rem;
+        margin: auto;
+        background: #efefef;
+        border: 1px solid #afafaf;
+        border-radius: 0.2rem;
+    }
+</style>
