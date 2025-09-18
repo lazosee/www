@@ -1,4 +1,12 @@
+/* Properties */
+@property --radius {
+	syntax: '<length>';
+	inherits: false;
+	initial-value: 0.4rem;
+}
+
 :root {
+	/* colors */
 	--color-accent: hsl(240, 16%, 88%);
 	--color-black: hsl(0 0% 10);
 	--color-white: hsl(255 100% 90);
@@ -6,4 +14,6 @@
 	--color-card-accent: rgba(180, 180, 180, 0.4);
 	--color-tag-accent: rgba(160, 160, 160, 0.8);
 	--color-border-accent: rgba(100, 100, 100, 0.6);
+
+	/* Radii */
 }

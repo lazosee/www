@@ -1,0 +1,251 @@
+---
+import { CircleXIcon, MenuIcon, RssIcon } from "@lucide/astro";
+---
+
+<header>
+    <a href="#" hreflang="en-us" aria-label="home page" class="mobile logo">
+        <span>LOGO</span>
+    </a>
+    <button id="menu-btn" class="mobile menu" aria-expanded="false" aria-controls="navbar">
+        <MenuIcon size={28} />
+    </button>
+    <nav id="navbar">
+        <ul>
+            <button id="menu-x-btn" class="mobile close" aria-label="close menu" aria-expanded="true" aria-controls="#navbar">
+                <CircleXIcon size={32} color="#2a2a2a" />
+            </button>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="home page">
+                    <span>LOGO</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="blog posts">
+                    <span>blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="projects">
+                    <span>projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="about me">
+                    <span>about</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="rss feed" data-rss>
+                    <RssIcon size={20} />
+                    <span>rss</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" hreflang="en-us" aria-label="contact">
+                    <span>contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div id="overlay" />
+</header>
+
+<script>
+    const overlay = document.querySelector('#overlay') as HTMLDivElement;
+    const navbar = document.querySelector('#navbar') as HTMLElement;
+    const menu_btn = document.querySelector('#menu-btn') as HTMLButtonElement;
+    const menu_x_btn = document.querySelector('#menu-x-btn') as HTMLButtonElement;
+
+    menu_btn.addEventListener('click', function() {
+        if (!overlay.classList.contains('show')) overlay.classList.add('show');
+        navbar.classList.toggle('show')
+    })
+    menu_x_btn.addEventListener('click', function() {
+        if (overlay.classList.contains('show')) overlay.classList.remove('show')
+        navbar.classList.toggle('show')
+    })
+    overlay.addEventListener('click', function(this) {
+        this.classList.remove('show')
+        if (navbar.classList.contains('show')) {
+            navbar.classList.remove('show')
+        }
+    })
+    navbar.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', function() {
+            navbar.classList.remove('show');
+            overlay.classList.remove('show')
+        })
+    })
+</script>
+
+<style>
+    :root {
+        --radius: 0.4rem;
+    }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: all 0.8s ease;
+    }
+    #overlay {
+        position: fixed;
+        inset: 0;
+        display: none;
+        z-index: 9;
+        background-color: rgba(0, 0, 0, 0.85);
+    }
+    #overlay.show {
+        display: block;
+    }
+
+    .mobile {
+        display: none;
+    }
+    .mobile.logo {
+        margin-right: auto;
+    }
+    .mobile.menu {
+        margin-left: auto;
+        background: transparent;
+        padding: 0.2rem 0.4rem;
+        border: none;
+    }
+    .mobile.close {
+        position: absolute;
+        right: -1rem;
+        top: -1rem;
+        width: fit-content;
+        height: auto;
+        aspect-ratio: 1;
+        border: none;
+        border-radius: 50%;
+        padding: 0.2rem;
+        background: #afafafaf;
+    }
+
+    #navbar {
+        width: 100%;
+        display: flex;
+    }
+    #navbar ul {
+        position: relative;
+        width: 100%;
+        display: flex;
+        list-style: none;
+        align-items: center;
+        font-family: 'Atkinson Hyperlegible', 'Roboto', Helvetica, sans-serif;
+        border-radius: var(--radius);
+    }
+    #navbar ul li {
+        margin: 0.2rem;
+        padding: 0.4rem clamp(0.4rem, calc(0.1rem + 2%), 1rem);
+        font-size: 1.25rem;
+        text-transform: capitalize;
+    }
+    #navbar ul li:first-of-type {
+        /** TODO: Create the logo */
+        margin-right: auto;
+        float: left;
+        border: 1px solid blue;
+    }
+    #navbar ul li:last-of-type {
+        float: right;
+        border-radius: var(--radius);
+        background-color: var(--color-primary);
+        border: 2px solid var(--color-primary);
+    }
+
+    [data-rss] {
+        text-transform: uppercase;
+        margin-right: 1.5rem;
+    }
+
+    header {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        padding-block: 0.6rem;
+        padding-inline: clamp(0.8rem, calc(2% + 0.4rem), 4rem);
+        background-color: cyan;
+    }
+    header a {
+        align-content: center;
+        justify-items: center;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        text-underline-offset: 0.3rem;
+    }
+    #navbar ul li a:hover,
+    #navbar ul li a:focus-visible {
+        text-decoration: underline;
+        text-underline-offset: 0.3rem;
+    }
+    #navbar ul li:first-of-type a:hover,
+    #navbar ul li:first-of-type a:focus-visible,
+    #navbar ul li:last-of-type a:hover,
+    #navbar ul li:last-of-type a:focus-visible {
+        text-decoration: none;
+    }
+    #navbar ul li:first-of-type:has(a:hover),
+    #navbar ul li:first-of-type a:focus-visible,
+    #navbar ul li:last-of-type:has(a:hover),
+    #navbar ul li:last-of-type a:focus-visible {
+        scale: 1.1;
+    }
+    header button:hover, header button:focus-visible {
+        scale: 1.1;
+    }
+    @media (max-width: 43.75rem) {
+        .mobile {
+            display: flex;
+        }
+        .mobile.close {
+            display: inline-flex;
+        }
+        [data-rss] {
+            margin-right: 0;
+        }
+        #navbar {
+            /** TODO */
+            position: fixed;
+            top: 50%;
+            left: -100%;
+            z-index: 19;
+            width: min(40ch, 100%);
+            transform: translateY(-50%);
+        }
+        #navbar.show {
+            left: 0;
+        }
+        #navbar ul {
+            width: 100%;
+            margin-inline: 1rem;
+            padding: 1rem 2rem;
+            flex-direction: column;
+            align-items: flex-start;
+            background-color: cadetblue;
+        }
+        #navbar ul li {
+            display: block;
+            width: 100%;
+        }
+        #navbar ul li a {
+            display: block;
+            /* border: 1px solid yellow; */
+        }
+        #navbar ul li a:hover,
+        #navbar ul li a:focus-visible {
+            text-decoration: underline black;
+        }
+        #navbar ul li:first-of-type {
+            margin-bottom: 1rem;
+        }
+        #navbar ul li:last-of-type {
+            margin-top: 0.6rem;
+            text-align: center;
+            border: 2px solid #cfcfcfaa;
+        }
+    }
+</style>

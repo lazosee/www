@@ -1,0 +1,31 @@
+---
+export type Props = {
+    videoId: string;
+    title: string;
+}
+const { videoId, title } = Astro.props;
+---
+
+<div>
+    <iframe
+        width="1920"
+        height="1080"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        title={title}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        style="width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 0.4rem;"
+    ></iframe>
+</div>
+
+<style>
+    div {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+        justify-items: center;
+        align-content: center;
+    }
+</style>

@@ -1,0 +1,42 @@
+---
+const datetime = new Date()
+---
+
+<footer>
+    <div>
+        <div>
+            <span>LOGO</span>
+        </div>
+        <div>
+            <span>&COPY;</span>
+            <time id="current-year" datetime={datetime.toISOString()}>
+                {datetime.getUTCFullYear()}
+            </time>
+            <span>Lazaro Osee</span>
+            <span>|</span>
+            <span>All rights reserved.</span>
+        </div>
+    </div>
+    <div>
+        <div>
+            <span>more pages</span>
+            <ul>
+                <li>
+                    <a href="#">blog categories</a>
+                </li>
+            </ul>
+        </div>
+        <div></div>
+    </div>
+</footer>
+<script>
+    const current_year = document.querySelector('#current-year') as HTMLTimeElement;
+
+    setCurrentYear(current_year)
+    
+    function setCurrentYear(current_year: HTMLTimeElement) {
+        current_year.setAttribute('datetime', new Date().toISOString());
+        current_year.textContent = new Date().getFullYear().toString()
+    }
+</script>
+<style></style>

@@ -41,6 +41,20 @@ export default defineMarkdocConfig({
 			},
 			selfClosing: true,
 		},
+		youtube: {
+			render: component('./src/components/Youtube.astro'),
+			selfClosing: true,
+			attributes: {
+				videoId: {
+					type: 'String',
+					required: true,
+				},
+				title: {
+					type: 'String',
+					required: false,
+				},
+			},
+		},
 		image: {
 			render: component('./src/components/Image.astro'),
 			selfClosing: true,

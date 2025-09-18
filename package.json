@@ -8,6 +8,7 @@
 		"@fontsource/roboto-mono": "^5.2.6",
 		"@fontsource/syne": "^5.2.6",
 		"@lion/ui": "^0.14.3",
+		"@lucide/astro": "^0.544.0",
 		"@lueur/blog-utils": "^1.20250824.11",
 		"astro": "^5.13.5",
 		"dompurify": "^3.2.6",

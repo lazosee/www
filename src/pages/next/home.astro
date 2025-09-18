@@ -1,0 +1,13 @@
+---
+import { Slot } from '../../components/main'
+import Base from '../../layouts/base.astro'
+import { Footer, Header } from '../../partials'
+---
+
+<Base title='Home | Lazaro Osee'>
+    <Slot slot="head"></Slot>
+    <Slot slot="default">
+        <Header></Header>
+        <Footer></Footer>
+    </Slot>
+</Base>

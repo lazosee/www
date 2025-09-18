@@ -40,22 +40,8 @@ const { Content, headings } = await post.render()
         <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" as="link" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <script src="https://giscus.app/client.js"
-            data-repo="lazosee/www"
-            data-repo-id="R_kgDOPryFHQ"
-            data-category="Announcements"
-            data-category-id="DIC_kwDOPryFHc4CvUqk"
-            data-mapping="og:title"
-            data-strict="1"
-            data-reactions-enabled="1"
-            data-emit-metadata="0"
-            data-input-position="top"
-            data-theme="preferred_color_scheme"
-            data-lang="en"
-            data-loading="lazy"
-            crossorigin="anonymous"
-            async>
-        </script>
+        <!-- esm.sh -->
+        <script type="module" src="https://esm.sh/giscus"></script>
     </Slot>
 
     <Slot slot="default">
