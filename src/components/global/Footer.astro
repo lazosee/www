@@ -1,0 +1,24 @@
+---
+import { nav_links, social_links } from "./data";
+
+
+---
+
+<footer class="" id="">
+    <nav class="" id="">
+        <ul class="" id="">
+            {Object.entries(nav_links).map(([key, value]) => (
+                <li class="" id="">
+                    <a href={value} class="" id="">{key}</a>
+                </li>
+            ))}
+        </ul>
+        <ul class="" id="">
+            {Object.entries(social_links).map(([key, value]) => (
+                <li class="" id="">
+                    <a href={value} class="" id="">{key}</a>
+                </li>
+            ))}
+        </ul>
+    </nav>
+</footer>

@@ -1,0 +1,81 @@
+---
+import { Layout } from '@/layouts';
+import { major_fields } from '@/mock';
+import { Image } from 'astro:assets';
+
+const title = "Blueprints | Lazaro Osee"
+
+const { searchParams } = Astro.url
+const category = searchParams.get('category')
+
+// TODO: Implement filter by category
+console.log(category)
+---
+
+<Layout {title}>
+    <main class="" id="">
+        <section class="" id="">
+            <h1 class="" id="">The Blueprint</h1>
+            <p class="" id="">A technical archive of structural precision and digital logic. Where form meets function.</p>
+        </section>
+        <section class="" id="">
+            <div class="" id="">
+                <ul class="" id="">
+                    <li class="" id="">
+                        <a href="?" class="" id="">all</a>
+                    </li>
+                    {major_fields.map(field => (
+                        <li class="" id="">
+                            <a href={`?category=${field}`} class="" id="">{field}</a>
+                        </li>
+                    )) }
+                </ul>
+            </div>
+            <div class="" id="">
+                <article class="" id="">
+                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtG-_FfGRTQQXv-DbI5bIZqOI1N90yJzx1w-jrmABv6u6NCKmU3SQQ9kG57DMDeFoee3vHjxH1kJAnhncwCeGBFCnXHThcjrK004AR2MenQtFa-vkyecaMWH83Bez8xU5Ohz94y8XVmfLBQMkzvg21_vjQ1CE7iPYrW_gMT-BQUFRqE0m2ThzvpLzSyJeC_ZLkoe12RJLeisVFsysL7lSFTcxMtXFgUl-pOKkBb6MTkb07PSMaY1dc5oEnseuXk5Wii_9xK_RQWnI" width={720} height={720} alt={""} fit="cover" decoding="async" loading="eager" fetchpriority="high" />
+                    <span class="" id="">Architecture • 2023</span>
+                    <h3 class="" id="">The Monolith Pavilion</h3>
+                    <p class="" id="">Structural study on brutalist weight and light diffusion.</p>
+                    <a href="" class="" id="">
+                        View Blueprint
+                        <span class="" id="">[arrow_right]</span>
+                    </a>
+                </article>
+                <article class="" id="">
+                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQDLmcooECScnkKtpcdQph0OyhGvUbCAaL05uraOEDKMgfyLI1rIQtRd5U7H3xIFBrkus6xt1nx74_SAI5j49MyvyBk--aYvU-HrjvZmCyOf3urc5NC0b-0fDvTHWEouaexxty8A0yXIpKiNuf-UHazb-tokXtPBJyxQKscG3YUVJhaF692xWhQiKN3MyF9wN7y8TQSpIs0rSiJDyV8EiPO1C1yfYyhF_L3QAjqZIeykWRm5AvPhkr5NG10XWJDfTaU5HTL4nD4Do" width={720} height={720} alt={""} fit="cover" decoding="async" loading="eager" fetchpriority="high" />
+                    <span class="" id="">Software • 2024</span>
+                    <h3 class="" id="">Nexus Kernel</h3>
+                    <p class="" id="">A high-performance asynchronous engine for grid simulation.</p>
+                    <a href="" class="" id="">
+                        View Repository
+                        <span class="" id="">[arrow_right]</span>
+                    </a>
+                </article>
+                <article class="" id="">
+                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1GFLaMZNnyhwWrmEPLfcQunjkXy7wG3vhHLh1N7sOIMmvcZlZutd66L7-sMuowiE_EL7XQ0jrnovLr8mV85mrr_lHO4BN4k4OLA8gjGBMWJwUEM2Nt4apR5eloZMeWct8ATCxi7MkNE-Oh8UBfEuSG9IJk-BoXEpFEc7UYkq5YA2csCG1ggGjqMuZZDxHLeDRHk69drXI3hEN_KeBcNxAC5tFsCBrbGUu9P6qNU9pCvChVoP8S0Oo2dQGHtnOkNy0UtwFeoDezYg" width={720} height={720} alt={""} fit="cover" decoding="async" loading="eager" fetchpriority="high" />
+                    <span class="" id="">Architecture • 2022</span>
+                    <h3 class="" id="">The Spiral Void</h3>
+                    <p class="" id="">Vertical circulation exploring negative space and shadow.</p>
+                    <a href="" class="" id="">
+                        View Blueprint
+                        <span class="" id="">[arrow_right]</span>
+                    </a>
+                </article>
+                <article class="" id="">
+                    <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd68VsgAEC_PPfC3dUoxeKRky8mIQIhx-VwpEeK6GUNK1TTy4sZE10gmch8mDMlyTyv4WQNq-sZ204rchwQgxobCnvJDXEM-wEelAKohRhCQW4eVehDI_SJiiCsE5dWvBE7m87rBCgCXvuMnaZxiXUAiRdHzg6HJ-UVxZf1RmR3MCGpoitC3fBDBHL3D8aVAg5u5nVoQchxG2dmh4E8H_cYWlpPjIYzRo6WoPT7u6-SEc2fVpXZeiv2MMsQBSpbIYrkOku_CCW33g" width={720} height={720} alt={""} fit="cover" decoding="async" loading="eager" fetchpriority="high" />
+                    <span class="" id="">Software • 2023</span>
+                    <h3 class="" id="">Lattice UI</h3>
+                    <p class="" id="">Component library focused on technical data clarity.</p>
+                    <a href="" class="" id="">
+                        View System
+                        <span class="" id="">[arrow_right]</span>
+                    </a>
+                </article>
+            </div>
+        </section>
+        <div class="" id="">
+            <!-- TODO: Implement icon and vertical fading divider for end of page -->
+        </div>
+    </main>
+</Layout>

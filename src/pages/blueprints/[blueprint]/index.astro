@@ -1,0 +1,94 @@
+---
+import { Layout } from "@/layouts"
+import { Image } from "astro:assets"
+
+const { blueprint } = Astro.params
+console.log(blueprint)
+
+const title = "Blueprint | Lazaro Osee"
+---
+
+<Layout {title}>
+    <section role="banner" class="" id="">
+        <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0WdosQKPeScwlT04HjWkS-PhjJA-VCNatP0qz6uZiKo3tliKBy-7_I4kaXwy3LyO6RQUbX4iCVdgujUPJe6RbZJdHXhDep6HljTNsl3r8L6jl40y-ku_wvkuC61g3NV2MGJQTK1eWxZX1ES5uZBuyJgO42aiAgh6qB0INSxl1K2aVZ9WM5oLUXl7vlgO9uTNrox-m1jXpLk-O3ps4M9YONqbPSXNOKp6mwyl3aEoxCffgiT4lMPw_Av0diV6DDx3K2fKuigSy_u4" width={1080} height={720} format="avif" alt="" />
+        <div class="" id="">
+            <span class="" id="">Case Study 04</span>
+            <h1 class="" id="">Parametric Pavilion Renderer</h1>
+            <p class="" id="">Computational design for structural efficiency and aesthetic fluid dynamics.</p>
+        </div>
+    </section>
+    <div class="" id="">
+        <aside class="" id="">
+            <ul class="" id="">
+                <li class="" id="">
+                    <h3 class="" id="">Role</h3>
+                    <ul class="" id="">
+                        <li class="" id="">Lead Computational Architect</li>
+                        <li class="" id="">Software Engineer</li>
+                    </ul>
+                </li>
+                <li class="" id="">
+                    <h3 class="" id="">Tech Stack</h3>
+                    <ul class="" id="">
+                        <li class="" id="">Rhino/Grasshopper</li>
+                        <li class="" id="">Python (NumPy)</li>
+                        <li class="" id="">WebGL / Three.js</li>
+                        <li class="" id="">C# / Unity</li>
+                    </ul>
+                </li>
+                <li class="" id="">
+                    <h3 class="" id="">Timeline</h3>
+                    <ul class="" id="">
+                        <li class="" id="">
+                            <i>
+                                <!-- TODO: Set the actual datetime attributes -->
+                                <time datetime="">Feb 2023</time>
+                                <span>—</span>
+                                <time datetime="">Oct 2023</time>
+                            </i>
+                        </li>
+                    </ul>
+                </li>
+                <li class="" id="">
+                    <a href="" class="" id="">
+                        View live render
+                        <span class="" id="">[arrow_right]</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <main class="" id="">
+            <div class="" id="">
+                <section class="" id="">
+                    <h2 class="" id="">The Structural Concept</h2>
+                    <p class="" id="">
+                        The Parametric Pavilion Renderer was born from the need to bridge the gap between abstract mathematical models and physical buildability. We sought to create an interface where architects could manipulate fluid forms while receiving real-time feedback on structural stress points and material waste.
+                    </p>
+                    <figure class="" id="">
+                        <Image src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNGRXz7IZrPCT-VYheRMwzB49oEu6jLPQFns0_p6z6yn3kZwu_SkZ63kF4a9ZA7Xz8zIK_ZHnGsTyuocjldIwfKQfaILBmyMvE_izxe1NCM3XnluZkX3ir8KkK-pb0u1L1yPp-H5q_iBsYb-oB8QkH5odum-KF78Ld89r-FzUbDmGoLbcQZ5nWBPEhnCFDPNBBJOoPRny_BT-C1qH2wIUVL36Lbx3J83h8xWLnH3SY_fD569egG7Saa-_q8B6w-FyBgoZAVEsZVjI" width={1080} height={720} alt="" format="avif" />
+                        <figcaption class="" id="">Mesh Topology Optimization</figcaption>
+                    </figure>
+                </section>
+                <section class="" id="">
+                    <h2 class="" id="">Logic Implementation</h2>
+                    <figure class="" id="">
+                        <div class="" id="">
+                            <!-- TODO: Syntax highlighting will be used here -->
+                            def generate_surface(u, v, complexity):
+                                # Apply Voronoi relaxation to vertex points
+                                x = math.sin(u * complexity) * math.cos(v)
+                                y = math.cos(u * complexity) * math.sin(v)
+                                z = math.tan(u * v) * 0.2
+                                
+                                return Vector3(x, y, z)
+
+                            // Update mesh geometry in real-time
+                            mesh.updatePositions(generate_surface(delta, time, 1.45));
+                        </div>
+                        <figcaption class="" id="">Mesh Topology Optimization</figcaption>
+                    </figure>
+                </section>
+            </div>
+        </main>
+    </div>
+</Layout>

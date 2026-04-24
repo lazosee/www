@@ -1,0 +1,51 @@
+---
+import { Layout } from "@/layouts"
+
+const title = "Get in Touch | Lazaro Osee"
+---
+
+<Layout {title}>
+    <main class="" id="">
+        <section class="" id="">
+            <h1 class="" id="">Get in touch</h1>
+            <p class="" id="">
+                Whether you have a project in mind, need architectural advice, or just want to discuss the finer points of architectural minimalism—drop a line below.
+            </p>
+        </section>
+        <section class="" id="">
+            <form class="" id="" name="contact-form">
+                <div class="" id="">
+                    <label for="fullname" class="" id="">Name</label>
+                    <input required aria-required="true" name="fullname" type="text" class="" id="fullname" placeholder="John Doe" />
+                </div>
+                <div class="" id="">
+                    <label for="email" class="" id="">Email</label>
+                    <input required aria-required="true" name="email" type="email" class="" id="email" placeholder="John.doe@email.com" />
+                </div>
+                <div class="" id="">
+                    <label for="message" class="" id="">Message</label>
+                    <textarea required aria-required="true" name="message" class="" id="message" placeholder="John Doe"></textarea>
+                </div>
+                <button type="submit" class="" id="">
+                    Send message
+                    <span class="" id="">[arrow_right]</span>
+                </button>
+            </form>
+        </section>
+    </main>
+</Layout>
+
+<script>
+    const contactForm = document.forms.namedItem("contact-form")
+
+    contactForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(contactForm);
+
+        // TODO: Implement astro actions to submit message
+        // Use resend API to send message to my email
+        alert(JSON.stringify(Object.fromEntries(formData.entries())))
+    });
+
+</script>

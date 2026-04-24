@@ -1,0 +1,17 @@
+---
+import { nav_links } from "./data";
+
+
+---
+
+<header class="" id="">
+    <nav class="" id="">
+        <ul class="" id="">
+            {Object.entries(nav_links).map(([key, value]) => (
+                <li class="" id="">
+                    <a href={value} class="" id="">{key}</a>
+                </li>
+            ))}
+        </ul>
+    </nav>
+</header>
