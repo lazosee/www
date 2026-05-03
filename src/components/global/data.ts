@@ -4,7 +4,6 @@ export const nav_links = {
 	Home: '/',
 	Blueprints: '/blueprints',
 	Sketches: '/sketches',
-	About: '/about',
 	Contact: '/contact',
 } satisfies Link
 

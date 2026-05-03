@@ -1,24 +1,114 @@
 ---
+import { sortByLength } from '@/utils/functions'
 import { nav_links, social_links } from "./data";
-
+const footer_navs = {
+    ...nav_links,
+    "About Me": "/about"
+}
+const navs = Object.entries(footer_navs).sort(([key, _], [key2, __]) => sortByLength(key, key2))
+const socials = Object.entries(social_links).sort(([key, _], [key2, __]) => sortByLength(key, key2))
 
 ---
 
-<footer class="" id="">
-    <nav class="" id="">
-        <ul class="" id="">
-            {Object.entries(nav_links).map(([key, value]) => (
-                <li class="" id="">
-                    <a href={value} class="" id="">{key}</a>
+<footer>
+    <nav class="">
+        <ul class="">
+            {navs.map(([key, value]) => (
+                <li class="">
+                    <a href={value} class="">{key}</a>
                 </li>
             ))}
         </ul>
-        <ul class="" id="">
-            {Object.entries(social_links).map(([key, value]) => (
-                <li class="" id="">
-                    <a href={value} class="" id="">{key}</a>
+        <div class="separator"></div>
+        <ul class="">
+            {socials.map(([key, value]) => (
+                <li class="">
+                    <a href={value} class="">{key}</a>
                 </li>
             ))}
         </ul>
     </nav>
+    <div class="copy-right">
+        <small>&copy;<span class="copyYear">{new Date().getFullYear()}</span> Lazaro Osee</small>
+    </div>
 </footer>
+
+<script>
+    const copy = document.querySelector('.copyYear') as HTMLElement
+    copy.innerText = `${new Date().getFullYear()}`
+</script>
+
+<style>
+    footer {
+        display: block;
+        max-width: 100ch;
+        width: stretch;
+        margin-block-start: 3em;
+        padding: 3rem 6rem 4rem;
+        border-top-left-radius: 2em;
+        border-top-right-radius: 2em;
+        background-color: color-mix(in oklch shorter hue, var(--neutral-color) 5%, light-dark(black, white) 5%);
+
+        @media(max-width: 500px) {
+            display: flex;
+            flex-direction: column;
+            padding: 3rem 1rem 4rem;
+        }
+    }
+    footer > .copy-right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    footer > nav {
+        & {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            gap: 2rem;
+            /* border: solid green; */
+        }
+        .separator {
+            & {
+                display: flex;
+                height: stretch;
+                width: 1rem;
+                corner-shape: squircle;
+                border-radius: 1rem;
+                background-color: color-mix(in oklab, var(--primary-color, light-dark(black, white)) 40%, light-dark(#fff3, #0003) 100%);
+            }
+        }
+        ul {
+            & {
+                flex: 1;
+                list-style: none inside;
+                display: block;
+                align-content: space-between;
+                justify-items: flex-start;
+                padding: 0;
+            }
+            &:first-child {
+                /* background-color: #00800033; */
+                justify-items: flex-end;
+                text-align: end;
+            }
+            &:last-child {
+                /* background-color: #0000ff33; */
+            }
+            li {
+                & {
+                    list-style: none inside;
+                    width: stretch;
+                    padding-block-end: 0.2em;
+                    /* border: 1px solid yellow; */
+                }
+                a {
+                    width: stretch;
+                }
+            }
+        }
+    }
+</style>

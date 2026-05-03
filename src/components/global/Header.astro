@@ -4,17 +4,20 @@ import { nav_links } from "./data";
 const {pathname} = new URL(Astro.url);
 ---
 
-<header class="" id="">
-    <nav class="" id="">
-        <ul class="" id="">
+<header>
+    <nav class="top-nav">
+        <ul class="show">
             {Object.entries(nav_links).map(([key, value]) => (
-                <li class="" id="">
-                    <a href={value} class={pathname === value ? "active" : ""} id="">{key}</a>
+                <li>
+                    <a href={value} class={pathname === value ? "active" : ""}>{key}</a>
                 </li>
             ))}
         </ul>
     </nav>
 </header>
+
+<script>
+</script>
 
 <style>
     header {
@@ -25,44 +28,54 @@ const {pathname} = new URL(Astro.url);
             top: 0;
             z-index: 100;
             width: 100%;
-            margin: 0.5em 1em;
+            margin: 0.5em 0;
             padding: 1em;
             display: flex;
             justify-content: center;
             align-items: center;
+            @media(max-width: 500px) {
+                margin-inline: 0;
+                padding: 1em 0.4em;
+            }
         }
 
         nav {
             & {
+                position: relative;
                 width: stretch;
                 display: flex;
-                padding-inline-end: 1em;
-                padding-inline-start: 1em;
+                margin: 0;
+                padding-inline: 1rem;
                 gap: 1em;
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                border-radius: 4em;
+                border-radius: 4rem;
                 color: light-dark(#ffff, #000f);
                 background-color: light-dark(#000, #fff);
+                @media (max-width: 500px) {
+                    justify-content: space-evenly;
+                }
             }
             ul {
                 & {
-                    width: stretch;
+                    width: fit-content;
                     display: flex;
-                    justify-content: center;
+                    justify-content: space-evenly;
                     align-items: center;
                     list-style: none;
-                    gap: 1em;
-
+                    padding: 0.2rem 0;
+                    gap: 2em;
                     @media(max-width: 500px) {
-                        display: none;
-                        /* TODO: Implement sidebar nav in this and parent */
-                        /* flex-direction: column; */
+                        width: stretch;
+                        gap: 0;
+                        justify-content: space-evenly;
                     }
                 }
                 li {
-                    & {}
+                    & {
+                        display: contents;
+                    }
                     a {
                         & {
                             position: relative;
