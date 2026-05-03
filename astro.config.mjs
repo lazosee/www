@@ -7,4 +7,5 @@ import cloudflare from '@astrojs/cloudflare'
 export default defineConfig({
 	output: 'server',
 	adapter: cloudflare({}),
+	// site: 'http://192.168.0.102:4321',
 })
